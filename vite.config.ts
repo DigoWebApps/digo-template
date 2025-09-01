@@ -10,7 +10,8 @@ export default defineConfig({
     tailwindcss(),
   ],
   server: {
-    host: 'localhost',
+    host:         'localhost',
+    allowedHosts: true,
   },
   resolve: {
     alias: {
