@@ -14,7 +14,6 @@
   },
   "dependencies": {
     "@digo-org/digo-api": "latest",
-    "@preact/signals-react": "^2.3.0",
     "@react-aria/visually-hidden": "3.8.22",
     "blob-util": "^2.0.2",
     "class-variance-authority": "^0.7.1",

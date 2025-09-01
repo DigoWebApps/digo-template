@@ -1,6 +1,8 @@
 import { createRoot } from 'react-dom/client';
+
+import { Asset } from './asset';
+
 import './styles.css';
-import { Asset }      from './asset';
 
 const rootElement   = createRoot(document.getElementById('rootSandpack')!);
 const assetInstance = new Asset();

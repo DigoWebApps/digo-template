@@ -5,11 +5,7 @@ import tailwindcss      from '@tailwindcss/vite';
 
 export default defineConfig({
   plugins: [
-    react({
-      babel: {
-        plugins: ['module:@preact/signals-react-transform'],
-      },
-    }),
+    react(),
     tsconfigPaths(),
     tailwindcss(),
   ],
