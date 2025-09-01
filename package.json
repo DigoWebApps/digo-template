@@ -4,13 +4,11 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite --host 0.0.0.0",
+    "dev": "vite --host 0.0.0.0 --port 8888",
     "build": "tsc && vite build",
     "lint": "eslint ./src/",
     "lint:fix": "eslint ./src/ --fix",
-    "preview": "vite preview",
-    "start:server": "node --loader ts-node/esm --no-warnings=ExperimentalWarning --experimental-specifier-resolution=node server/ws-server.ts",
-    "app": "concurrently \"npm run dev\" \"npm run start:server\""
+    "preview": "vite preview"
   },
   "dependencies": {
     "@digo-org/digo-api": "latest",
