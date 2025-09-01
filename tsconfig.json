@@ -15,36 +15,14 @@
       "*": [
         "./src/*"
       ],
-      "app/*": [
-        "src/app/*"
-      ],
-      "components/*": [
-        "src/components/*"
-      ],
-      "services/*": [
-        "src/services/*"
-      ],
-      "styles/*": [
-        "src/styles/*"
-      ],
-      "types": [
-        "src/types"
-      ],
-      "ui-library": [
-        "src/ui-library/index"
-      ],
-      "utils/*": [
-        "src/utils/*"
-      ],
     },
-    /* Bundler mode */
     "moduleResolution": "bundler",
+    "allowSyntheticDefaultImports": true,
     "allowImportingTsExtensions": true,
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
     "jsx": "react-jsx",
-    /* Linting */
     "strict": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
@@ -52,10 +30,6 @@
   },
   "include": [
     "src",
-  ],
-  "references": [
-    {
-      "path": "./tsconfig.node.json"
-    }
+    "vite.config.ts"
   ]
 }

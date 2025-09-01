@@ -15,18 +15,11 @@ export default defineConfig({
   ],
   server: {
     host: 'localhost',
-    port: 808,
+    port: 8008,
   },
   resolve: {
     alias: {
-      '@':          '/src',
-      'app':        '/src/app',
-      'components': '/src/components',
-      'services':   '/src/services',
-      'styles':     '/src/styles',
-      'types':      '/src/types',
-      'ui-library': '/src/ui-library/index',
-      'utils':      '/src/utils',
+      '@': '/src',
     },
   },
 });
