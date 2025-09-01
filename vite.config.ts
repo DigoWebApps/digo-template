@@ -11,7 +11,7 @@ export default defineConfig({
   ],
   server: {
     host:         '0.0.0.0',
-    allowedHosts: true,
+    allowedHosts: ['.e2b.app'],
   },
   resolve: {
     alias: {
