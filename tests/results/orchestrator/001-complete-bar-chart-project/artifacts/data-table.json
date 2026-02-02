@@ -1,0 +1,84 @@
+{
+  "DATA_TABLE_DEFINITION": {
+    "timeArray": [],
+    "columns": [
+      {
+        "id": "sales",
+        "name": "Sales",
+        "type": "NUMBER",
+        "definition": {
+          "defaultValue": 0,
+          "min": 0,
+          "units": "USD",
+          "decimals": 0
+        }
+      },
+      {
+        "id": "product_color",
+        "name": "Product Color",
+        "type": "COLOR",
+        "definition": {
+          "defaultValue": "#3b82f6"
+        }
+      },
+      {
+        "id": "label",
+        "name": "Label",
+        "type": "TEXT",
+        "definition": {
+          "defaultValue": ""
+        }
+      }
+    ],
+    "rows": [
+      {
+        "id": "product_a",
+        "name": "Product A",
+        "hidden": false,
+        "sales": 45000,
+        "product_color": "#3b82f6",
+        "label": "Product A"
+      },
+      {
+        "id": "product_b",
+        "name": "Product B",
+        "hidden": false,
+        "sales": 62000,
+        "product_color": "#8b5cf6",
+        "label": "Product B"
+      },
+      {
+        "id": "product_c",
+        "name": "Product C",
+        "hidden": false,
+        "sales": 38000,
+        "product_color": "#ec4899",
+        "label": "Product C"
+      },
+      {
+        "id": "product_d",
+        "name": "Product D",
+        "hidden": false,
+        "sales": 71000,
+        "product_color": "#f59e0b",
+        "label": "Product D"
+      },
+      {
+        "id": "product_e",
+        "name": "Product E",
+        "hidden": false,
+        "sales": 54000,
+        "product_color": "#10b981",
+        "label": "Product E"
+      },
+      {
+        "id": "product_f",
+        "name": "Product F",
+        "hidden": false,
+        "sales": 49000,
+        "product_color": "#ef4444",
+        "label": "Product F"
+      }
+    ]
+  }
+}

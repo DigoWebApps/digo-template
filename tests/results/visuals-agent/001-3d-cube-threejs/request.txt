@@ -1,0 +1,1 @@
+Create a simple 3D cube visualization using three.js and @react-three/fiber. The cube should be customizable in size, color, rotation speed, and position.

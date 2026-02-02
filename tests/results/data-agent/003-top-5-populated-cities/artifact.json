@@ -1,0 +1,64 @@
+{
+  "DATA_TABLE_DEFINITION": {
+    "timeArray": [],
+    "columns": [
+      {
+        "id": "population",
+        "name": "Population",
+        "type": "NUMBER",
+        "definition": {
+          "defaultValue": 0,
+          "min": 0,
+          "units": "people",
+          "decimals": 0
+        }
+      },
+      {
+        "id": "country",
+        "name": "Country",
+        "type": "TEXT",
+        "definition": {
+          "defaultValue": "",
+          "placeholder": ""
+        }
+      }
+    ],
+    "rows": [
+      {
+        "id": "tokyo",
+        "name": "Tokyo",
+        "hidden": false,
+        "population": 36953600,
+        "country": "Japan"
+      },
+      {
+        "id": "delhi",
+        "name": "Delhi",
+        "hidden": false,
+        "population": 35518400,
+        "country": "India"
+      },
+      {
+        "id": "shanghai",
+        "name": "Shanghai",
+        "hidden": false,
+        "population": 31049800,
+        "country": "China"
+      },
+      {
+        "id": "dhaka",
+        "name": "Dhaka",
+        "hidden": false,
+        "population": 25359100,
+        "country": "Bangladesh"
+      },
+      {
+        "id": "cairo",
+        "name": "Cairo",
+        "hidden": false,
+        "population": 23534600,
+        "country": "Egypt"
+      }
+    ]
+  }
+}

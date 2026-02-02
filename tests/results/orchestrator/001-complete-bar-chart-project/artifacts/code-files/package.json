@@ -1,0 +1,11 @@
+{
+  "name": "bar-chart-visualization",
+  "version": "1.0.0",
+  "main": "/index.tsx",
+  "dependencies": {
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "@digo-org/digo-api": "latest",
+    "recharts": "^2.10.0"
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "agentType": "orchestrator",
+  "testNumber": "002",
+  "description": "Quarterly revenue line chart (complete project with time series)",
+  "timestamp": "2026-01-28T18:55:00.000Z",
+  "passed": false,
+  "errors": [
+    "❌ ISSUE: Instance parameters have 'isArray: true' in definition.json - This is incorrect. isArray should only be on DATA columns, not VizParameters"
+  ],
+  "observations": [
+    "✅ Correctly identified this as a complete project request",
+    "✅ Generated time series data with timeArray populated",
+    "✅ Created recharts line chart with 17 global + 3 instance parameters",
+    "✅ Proper parameter grouping (Appearance, Layout, Axes, Text, Data)",
+    "✅ All required files present",
+    "✅ Class extends DigoAsset properly",
+    "❌ Instance parameters incorrectly have 'isArray: true' - VizParameters don't support this property",
+    "⚠️ Only one LINK created (line-value → revenue), missing line-label link to timeArray labels",
+    "⚠️ The line-color instance parameter exists but isn't linked to anything"
+  ],
+  "recommendations": [
+    "Remove 'isArray' from VizParameter definitions - this property only exists on DataColumn definitions",
+    "Consider linking line-label to timeArray values or row names for better semantic mapping",
+    "Update visuals-agent instructions to clarify that VizParameters don't have isArray property"
+  ]
+}

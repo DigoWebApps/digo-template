@@ -1,0 +1,80 @@
+{
+  "DATA_TABLE_DEFINITION": {
+    "timeArray": [],
+    "columns": [
+      {
+        "id": "gdp",
+        "name": "GDP (Trillions USD)",
+        "type": "NUMBER",
+        "definition": {
+          "defaultValue": 0,
+          "min": 0,
+          "units": "Trillions USD",
+          "decimals": 2
+        }
+      }
+    ],
+    "rows": [
+      {
+        "id": "united_states",
+        "name": "United States",
+        "hidden": false,
+        "gdp": 29.3
+      },
+      {
+        "id": "china",
+        "name": "China",
+        "hidden": false,
+        "gdp": 18.75
+      },
+      {
+        "id": "germany",
+        "name": "Germany",
+        "hidden": false,
+        "gdp": 4.68
+      },
+      {
+        "id": "japan",
+        "name": "Japan",
+        "hidden": false,
+        "gdp": 4.02
+      },
+      {
+        "id": "india",
+        "name": "India",
+        "hidden": false,
+        "gdp": 3.91
+      },
+      {
+        "id": "united_kingdom",
+        "name": "United Kingdom",
+        "hidden": false,
+        "gdp": 3.64
+      },
+      {
+        "id": "france",
+        "name": "France",
+        "hidden": false,
+        "gdp": 3.16
+      },
+      {
+        "id": "italy",
+        "name": "Italy",
+        "hidden": false,
+        "gdp": 2.37
+      },
+      {
+        "id": "canada",
+        "name": "Canada",
+        "hidden": false,
+        "gdp": 2.24
+      },
+      {
+        "id": "brazil",
+        "name": "Brazil",
+        "hidden": false,
+        "gdp": 2.18
+      }
+    ]
+  }
+}

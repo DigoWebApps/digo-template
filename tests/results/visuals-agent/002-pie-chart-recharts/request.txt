@@ -1,0 +1,1 @@
+Create a pie chart visualization using recharts. It should have instance parameters for slice value, slice color, and slice label so that each slice can be controlled through data.

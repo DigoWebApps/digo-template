@@ -1,0 +1,9 @@
+{
+  "agentType": "data-agent",
+  "testNumber": "003",
+  "description": "Top 5 populated cities (multi-column, multi-row)",
+  "timestamp": "2026-01-28T18:49:00.000Z",
+  "passed": true,
+  "errors": [],
+  "notes": "Static data with multiple columns (NUMBER and TEXT), demonstrates mixed column types"
+}

@@ -1,0 +1,143 @@
+[
+  {
+    "id": "background-color",
+    "name": "Background Color",
+    "group": "Appearance",
+    "isGlobal": true,
+    "type": "COLOR",
+    "definition": {
+      "defaultValue": "#ffffff"
+    }
+  },
+  {
+    "id": "chart-title",
+    "name": "Chart Title",
+    "group": "Text",
+    "isGlobal": true,
+    "type": "TEXT",
+    "definition": {
+      "defaultValue": "Bar Chart",
+      "placeholder": "Enter chart title"
+    }
+  },
+  {
+    "id": "show-title",
+    "name": "Show Title",
+    "group": "Layout",
+    "isGlobal": true,
+    "type": "BOOLEAN",
+    "definition": {
+      "defaultValue": true
+    }
+  },
+  {
+    "id": "show-grid",
+    "name": "Show Grid",
+    "group": "Layout",
+    "isGlobal": true,
+    "type": "BOOLEAN",
+    "definition": {
+      "defaultValue": true
+    }
+  },
+  {
+    "id": "show-x-axis",
+    "name": "Show X Axis",
+    "group": "Layout",
+    "isGlobal": true,
+    "type": "BOOLEAN",
+    "definition": {
+      "defaultValue": true
+    }
+  },
+  {
+    "id": "show-y-axis",
+    "name": "Show Y Axis",
+    "group": "Layout",
+    "isGlobal": true,
+    "type": "BOOLEAN",
+    "definition": {
+      "defaultValue": true
+    }
+  },
+  {
+    "id": "show-legend",
+    "name": "Show Legend",
+    "group": "Layout",
+    "isGlobal": true,
+    "type": "BOOLEAN",
+    "definition": {
+      "defaultValue": false
+    }
+  },
+  {
+    "id": "show-tooltip",
+    "name": "Show Tooltip",
+    "group": "Interaction",
+    "isGlobal": true,
+    "type": "BOOLEAN",
+    "definition": {
+      "defaultValue": true
+    }
+  },
+  {
+    "id": "bar-radius",
+    "name": "Bar Corner Radius",
+    "group": "Appearance",
+    "isGlobal": true,
+    "type": "NUMBER",
+    "definition": {
+      "defaultValue": 4,
+      "min": 0,
+      "max": 20,
+      "step": 1,
+      "units": "px"
+    }
+  },
+  {
+    "id": "chart-padding",
+    "name": "Chart Padding",
+    "group": "Layout",
+    "isGlobal": true,
+    "type": "NUMBER",
+    "definition": {
+      "defaultValue": 20,
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "units": "px"
+    }
+  },
+  {
+    "id": "bar-value",
+    "name": "Bar Value",
+    "group": "Data",
+    "isGlobal": false,
+    "type": "NUMBER",
+    "definition": {
+      "defaultValue": 0,
+      "min": 0
+    }
+  },
+  {
+    "id": "bar-color",
+    "name": "Bar Color",
+    "group": "Data",
+    "isGlobal": false,
+    "type": "COLOR",
+    "definition": {
+      "defaultValue": "#3b82f6"
+    }
+  },
+  {
+    "id": "bar-label",
+    "name": "Bar Label",
+    "group": "Data",
+    "isGlobal": false,
+    "type": "TEXT",
+    "definition": {
+      "defaultValue": "",
+      "placeholder": "Enter label"
+    }
+  }
+]

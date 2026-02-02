@@ -1,0 +1,93 @@
+      "DATA_TABLE_DEFINITION": {
+        "timeArray": [],
+        "columns": [
+          {
+            "id": "sales",
+            "name": "Sales",
+            "type": "NUMBER",
+            "definition": {
+              "defaultValue": 0,
+              "min": 0,
+              "units": "USD",
+              "decimals": 0
+            }
+          },
+          {
+            "id": "product_color",
+            "name": "Product Color",
+            "type": "COLOR",
+            "definition": {
+              "defaultValue": "#3b82f6"
+            }
+          },
+          {
+            "id": "label",
+            "name": "Label",
+            "type": "TEXT",
+            "definition": {
+              "defaultValue": ""
+            }
+          }
+        ],
+        "rows": [
+          {
+            "id": "product_a",
+            "name": "Product A",
+            "hidden": false,
+            "sales": 45000,
+            "product_color": "#3b82f6",
+            "label": "Product A"
+          },
+          {
+            "id": "product_b",
+            "name": "Product B",
+            "hidden": false,
+            "sales": 62000,
+            "product_color": "#8b5cf6",
+            "label": "Product B"
+          },
+          {
+            "id": "product_c",
+            "name": "Product C",
+            "hidden": false,
+            "sales": 38000,
+            "product_color": "#ec4899",
+            "label": "Product C"
+          },
+          {
+            "id": "product_d",
+            "name": "Product D",
+            "hidden": false,
+            "sales": 71000,
+            "product_color": "#f59e0b",
+            "label": "Product D"
+          },
+          {
+            "id": "product_e",
+            "name": "Product E",
+            "hidden": false,
+            "sales": 54000,
+            "product_color": "#10b981",
+            "label": "Product E"
+          },
+          {
+            "id": "product_f",
+            "name": "Product F",
+            "hidden": false,
+            "sales": 49000,
+            "product_color": "#ef4444",
+            "label": "Product F"
+          }
+        ]
+      },
+      "CODE_FILES": {
+        "/asset.tsx": "import React from 'react';\nimport { DigoAsset } from '@digo-org/digo-api';\nimport { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, Cell } from 'recharts';\n\nexport default class BarChartAsset extends DigoAsset {\n  constructor() {\n    super();\n  }\n\n  render() {\n    // Global parameters\n    const backgroundColor = this.globalParameters['background-color'] as string || '#ffffff';\n    const chartTitle = this.globalParameters['chart-title'] as string || 'Bar Chart';\n    const showTitle = this.globalParameters['show-title'] as boolean ?? true;\n    const showGrid = this.globalParameters['show-grid'] as boolean ?? true;\n    const showXAxis = this.globalParameters['show-x-axis'] as boolean ?? true;\n    const showYAxis = this.globalParameters['show-y-axis'] as boolean ?? true;\n    const showLegend = this.globalParameters['show-legend'] as boolean ?? false;\n    const showTooltip = this.globalParameters['show-tooltip'] as boolean ?? true;\n    const barRadius = this.globalParameters['bar-radius'] as number || 4;\n    const chartPadding = this.globalParameters['chart-padding'] as number || 20;\n\n    // Process instance data\n    const data = this.instances?.map((instance) => ({\n      name: instance['bar-label'] as string || 'Item',\n      value: instance['bar-value'] as number || 0,\n      color: instance['bar-color'] as string || '#3b82f6'\n    })) || [];\n\n    return (\n      <div \n        style={{ \n          width: '100%', \n          height: '100%', \n          backgroundColor,\n          padding: `${chartPadding}px`,\n          boxSizing: 'border-box'\n        }}\n      >\n        {showTitle && (\n          <h2 style={{ \n            textAlign: 'center', \n            marginTop: 0, \n            marginBottom: '20px',\n            color: '#1f2937',\n            fontSize: '24px',\n            fontWeight: 600\n          }}>\n            {chartTitle}\n          </h2>\n        )}\n        <ResponsiveContainer width=\"100%\" height={showTitle ? 'calc(100% - 60px)' : '100%'}>\n          <BarChart data={data} margin={{ top: 10, right: 30, left: 0, bottom: 0 }}>\n            {showGrid && <CartesianGrid strokeDasharray=\"3 3\" stroke=\"#e5e7eb\" />}\n            {showXAxis && <XAxis dataKey=\"name\" stroke=\"#6b7280\" />}\n            {showYAxis && <YAxis stroke=\"#6b7280\" />}\n            {showTooltip && <Tooltip />}\n            {showLegend && <Legend />}\n            <Bar dataKey=\"value\" radius={[barRadius, barRadius, 0, 0]}>\n              {data.map((entry, index) => (\n                <Cell key={`cell-${index}`} fill={entry.color} />\n              ))}\n            </Bar>\n          </BarChart>\n        </ResponsiveContainer>\n      </div>\n    );\n  }\n}",
+        "/package.json": "{\n  \"name\": \"bar-chart-visualization\",\n  \"version\": \"1.0.0\",\n  \"main\": \"/index.tsx\",\n  \"dependencies\": {\n    \"react\": \"^19.0.0\",\n    \"react-dom\": \"^19.0.0\",\n    \"@digo-org/digo-api\": \"latest\",\n    \"recharts\": \"^2.10.0\"\n  }\n}",
+        "/styles.css": "",
+        "/definition.json": "[\n  {\n    \"id\": \"background-color\",\n    \"name\": \"Background Color\",\n    \"group\": \"Appearance\",\n    \"isGlobal\": true,\n    \"type\": \"COLOR\",\n    \"definition\": {\n      \"defaultValue\": \"#ffffff\"\n    }\n  },\n  {\n    \"id\": \"chart-title\",\n    \"name\": \"Chart Title\",\n    \"group\": \"Text\",\n    \"isGlobal\": true,\n    \"type\": \"TEXT\",\n    \"definition\": {\n      \"defaultValue\": \"Bar Chart\",\n      \"placeholder\": \"Enter chart title\"\n    }\n  },\n  {\n    \"id\": \"show-title\",\n    \"name\": \"Show Title\",\n    \"group\": \"Layout\",\n    \"isGlobal\": true,\n    \"type\": \"BOOLEAN\",\n    \"definition\": {\n      \"defaultValue\": true\n    }\n  },\n  {\n    \"id\": \"show-grid\",\n    \"name\": \"Show Grid\",\n    \"group\": \"Layout\",\n    \"isGlobal\": true,\n    \"type\": \"BOOLEAN\",\n    \"definition\": {\n      \"defaultValue\": true\n    }\n  },\n  {\n    \"id\": \"show-x-axis\",\n    \"name\": \"Show X Axis\",\n    \"group\": \"Layout\",\n    \"isGlobal\": true,\n    \"type\": \"BOOLEAN\",\n    \"definition\": {\n      \"defaultValue\": true\n    }\n  },\n  {\n    \"id\": \"show-y-axis\",\n    \"name\": \"Show Y Axis\",\n    \"group\": \"Layout\",\n    \"isGlobal\": true,\n    \"type\": \"BOOLEAN\",\n    \"definition\": {\n      \"defaultValue\": true\n    }\n  },\n  {\n    \"id\": \"show-legend\",\n    \"name\": \"Show Legend\",\n    \"group\": \"Layout\",\n    \"isGlobal\": true,\n    \"type\": \"BOOLEAN\",\n    \"definition\": {\n      \"defaultValue\": false\n    }\n  },\n  {\n    \"id\": \"show-tooltip\",\n    \"name\": \"Show Tooltip\",\n    \"group\": \"Interaction\",\n    \"isGlobal\": true,\n    \"type\": \"BOOLEAN\",\n    \"definition\": {\n      \"defaultValue\": true\n    }\n  },\n  {\n    \"id\": \"bar-radius\",\n    \"name\": \"Bar Corner Radius\",\n    \"group\": \"Appearance\",\n    \"isGlobal\": true,\n    \"type\": \"NUMBER\",\n    \"definition\": {\n      \"defaultValue\": 4,\n      \"min\": 0,\n      \"max\": 20,\n      \"step\": 1,\n      \"units\": \"px\"\n    }\n  },\n  {\n    \"id\": \"chart-padding\",\n    \"name\": \"Chart Padding\",\n    \"group\": \"Layout\",\n    \"isGlobal\": true,\n    \"type\": \"NUMBER\",\n    \"definition\": {\n      \"defaultValue\": 20,\n      \"min\": 0,\n      \"max\": 100,\n      \"step\": 5,\n      \"units\": \"px\"\n    }\n  },\n  {\n    \"id\": \"bar-value\",\n    \"name\": \"Bar Value\",\n    \"group\": \"Data\",\n    \"isGlobal\": false,\n    \"type\": \"NUMBER\",\n    \"definition\": {\n      \"defaultValue\": 0,\n      \"min\": 0\n    }\n  },\n  {\n    \"id\": \"bar-color\",\n    \"name\": \"Bar Color\",\n    \"group\": \"Data\",\n    \"isGlobal\": false,\n    \"type\": \"COLOR\",\n    \"definition\": {\n      \"defaultValue\": \"#3b82f6\"\n    }\n  },\n  {\n    \"id\": \"bar-label\",\n    \"name\": \"Bar Label\",\n    \"group\": \"Data\",\n    \"isGlobal\": false,\n    \"type\": \"TEXT\",\n    \"definition\": {\n      \"defaultValue\": \"\",\n      \"placeholder\": \"Enter label\"\n    }\n  }\n]"
+      },
+      "LINKS": {
+        "bar-value": "sales",
+        "bar-color": "product_color",
+        "bar-label": "label"
+      }

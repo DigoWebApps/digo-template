@@ -1,0 +1,63 @@
+{
+  "description": "Multiple companies with quarterly revenue comparison - each company is a separate line on the chart",
+  "DATA_TABLE_DEFINITION": {
+    "timeArray": [
+      "Q1 2024",
+      "Q2 2024",
+      "Q3 2024",
+      "Q4 2024"
+    ],
+    "columns": [
+      {
+        "id": "revenue",
+        "name": "Revenue (USD)",
+        "type": "NUMBER",
+        "isArray": true,
+        "definition": {
+          "defaultValue": 0,
+          "min": 0,
+          "units": "USD",
+          "decimals": 0
+        }
+      },
+      {
+        "id": "company_color",
+        "name": "Company Color",
+        "type": "COLOR",
+        "definition": {
+          "defaultValue": "#8884d8"
+        }
+      }
+    ],
+    "rows": [
+      {
+        "id": "company_a",
+        "name": "Company A",
+        "hidden": false,
+        "revenue": [125000, 148000, 162000, 195000],
+        "company_color": "#3b82f6"
+      },
+      {
+        "id": "company_b",
+        "name": "Company B",
+        "hidden": false,
+        "revenue": [98000, 115000, 138000, 156000],
+        "company_color": "#8b5cf6"
+      },
+      {
+        "id": "company_c",
+        "name": "Company C",
+        "hidden": false,
+        "revenue": [145000, 132000, 158000, 178000],
+        "company_color": "#ec4899"
+      }
+    ]
+  },
+  "CODE_FILES": {
+    "/asset.tsx": "import { DigoAsset } from '@digo-org/digo-api';\nimport { ResponsiveContainer, LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'recharts';\n\nexport class Asset extends DigoAsset {\n  constructor() {\n    super();\n  }\n\n  override render() {\n    // Transform time series data: each time point becomes a data point with all company values\n    const chartData = this.timeArray?.map((timeLabel, timeIndex) => {\n      const dataPoint: any = { name: timeLabel };\n      \n      // For each instance (company), add its value at this time point\n      this.instances?.forEach((instance) => {\n        const companyName = instance.name as string;\n        const revenueArray = instance['revenue'] as number[];\n        dataPoint[companyName] = revenueArray[timeIndex];\n      });\n      \n      return dataPoint;\n    }) || [];\n\n    return (\n      <div style={{\n        width: '100%',\n        height: '100%',\n        backgroundColor: this.globalParameters['background-color'] as string || '#ffffff',\n        padding: '20px',\n        fontFamily: 'sans-serif',\n        boxSizing: 'border-box'\n      }}>\n        {this.globalParameters['show-title'] && (\n          <h2 style={{\n            textAlign: 'center',\n            margin: '0 0 20px 0',\n            fontSize: '24px',\n            color: '#1f2937',\n            fontWeight: 'bold'\n          }}>\n            {this.globalParameters['chart-title'] as string || 'Multi-Company Revenue Comparison'}\n          </h2>\n        )}\n\n        <ResponsiveContainer width=\"100%\" height=\"100%\">\n          <LineChart\n            data={chartData}\n            margin={{ top: 10, right: 30, left: 0, bottom: 0 }}\n          >\n            {this.globalParameters['show-grid'] && (\n              <CartesianGrid strokeDasharray=\"3 3\" stroke=\"#e5e7eb\" />\n            )}\n\n            <XAxis dataKey=\"name\" stroke=\"#6b7280\" />\n            <YAxis stroke=\"#6b7280\" />\n\n            {this.globalParameters['show-tooltip'] && (\n              <Tooltip formatter={(value: number) => `$${value.toLocaleString()}`} />\n            )}\n\n            {this.globalParameters['show-legend'] && <Legend />}\n\n            {this.instances?.map((instance, index) => (\n              <Line\n                key={instance.id}\n                type={this.globalParameters['smooth-curve'] ? 'monotone' : 'linear'}\n                dataKey={instance.name as string}\n                stroke={instance['company_color'] as string || '#8884d8'}\n                strokeWidth={this.globalParameters['stroke-width'] as number || 2}\n                dot={this.globalParameters['show-dots']}\n                name={instance.name as string}\n              />\n            ))}\n          </LineChart>\n        </ResponsiveContainer>\n      </div>\n    );\n  }\n}",
+    "/package.json": "{\n  \"name\": \"multi-company-line-chart\",\n  \"version\": \"1.0.0\",\n  \"main\": \"/index.tsx\",\n  \"dependencies\": {\n    \"react\": \"^19.0.0\",\n    \"react-dom\": \"^19.0.0\",\n    \"@digo-org/digo-api\": \"latest\",\n    \"recharts\": \"^2.12.0\"\n  }\n}",
+    "/styles.css": "",
+    "/definition.json": "[\n  {\n    \"id\": \"background-color\",\n    \"name\": \"Background Color\",\n    \"isGlobal\": true,\n    \"group\": \"Appearance\",\n    \"type\": \"COLOR\",\n    \"definition\": {\n      \"defaultValue\": \"#ffffff\"\n    }\n  },\n  {\n    \"id\": \"chart-title\",\n    \"name\": \"Chart Title\",\n    \"isGlobal\": true,\n    \"group\": \"Text\",\n    \"type\": \"TEXT\",\n    \"definition\": {\n      \"defaultValue\": \"Quarterly Revenue Comparison 2024\",\n      \"placeholder\": \"Enter chart title\"\n    }\n  },\n  {\n    \"id\": \"show-title\",\n    \"name\": \"Show Title\",\n    \"isGlobal\": true,\n    \"group\": \"Layout\",\n    \"type\": \"BOOLEAN\",\n    \"definition\": {\n      \"defaultValue\": true\n    }\n  },\n  {\n    \"id\": \"show-grid\",\n    \"name\": \"Show Grid\",\n    \"isGlobal\": true,\n    \"group\": \"Layout\",\n    \"type\": \"BOOLEAN\",\n    \"definition\": {\n      \"defaultValue\": true\n    }\n  },\n  {\n    \"id\": \"show-tooltip\",\n    \"name\": \"Show Tooltip\",\n    \"isGlobal\": true,\n    \"group\": \"Interaction\",\n    \"type\": \"BOOLEAN\",\n    \"definition\": {\n      \"defaultValue\": true\n    }\n  },\n  {\n    \"id\": \"show-legend\",\n    \"name\": \"Show Legend\",\n    \"isGlobal\": true,\n    \"group\": \"Layout\",\n    \"type\": \"BOOLEAN\",\n    \"definition\": {\n      \"defaultValue\": true\n    }\n  },\n  {\n    \"id\": \"smooth-curve\",\n    \"name\": \"Smooth Curve\",\n    \"isGlobal\": true,\n    \"group\": \"Appearance\",\n    \"type\": \"BOOLEAN\",\n    \"definition\": {\n      \"defaultValue\": true\n    }\n  },\n  {\n    \"id\": \"show-dots\",\n    \"name\": \"Show Data Points\",\n    \"isGlobal\": true,\n    \"group\": \"Appearance\",\n    \"type\": \"BOOLEAN\",\n    \"definition\": {\n      \"defaultValue\": true\n    }\n  },\n  {\n    \"id\": \"stroke-width\",\n    \"name\": \"Line Width\",\n    \"isGlobal\": true,\n    \"group\": \"Appearance\",\n    \"type\": \"NUMBER\",\n    \"definition\": {\n      \"defaultValue\": 2,\n      \"min\": 1,\n      \"max\": 10,\n      \"units\": \"px\"\n    }\n  }\n]"
+  },
+  "LINKS": {}
+}

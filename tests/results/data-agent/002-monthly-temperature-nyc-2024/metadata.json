@@ -1,0 +1,9 @@
+{
+  "agentType": "data-agent",
+  "testNumber": "002",
+  "description": "Monthly temperature NYC 2024 (time series)",
+  "timestamp": "2026-01-28T18:47:00.000Z",
+  "passed": true,
+  "errors": [],
+  "notes": "Time series data with populated timeArray (12 months), two numeric columns with isArray:true, arrays match timeArray length"
+}

@@ -1,0 +1,42 @@
+{
+  "DATA_TABLE_DEFINITION": {
+    "timeArray": ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+    "columns": [
+      {
+        "id": "temp_fahrenheit",
+        "name": "Average Temperature (°F)",
+        "type": "NUMBER",
+        "isArray": true,
+        "definition": {
+          "defaultValue": 0,
+          "min": -20,
+          "max": 120,
+          "units": "°F",
+          "decimals": 1
+        }
+      },
+      {
+        "id": "temp_celsius",
+        "name": "Average Temperature (°C)",
+        "type": "NUMBER",
+        "isArray": true,
+        "definition": {
+          "defaultValue": 0,
+          "min": -30,
+          "max": 50,
+          "units": "°C",
+          "decimals": 1
+        }
+      }
+    ],
+    "rows": [
+      {
+        "id": "nyc_2024",
+        "name": "New York City 2024",
+        "hidden": false,
+        "temp_fahrenheit": [37.0, 40.1, 48.1, 55.6, 65.0, 75.1, 79.6, 75.1, 68.8, 60.9, 51.4, 38.2],
+        "temp_celsius": [2.8, 4.5, 8.9, 13.1, 18.3, 23.9, 26.4, 23.9, 20.4, 16.1, 10.8, 3.4]
+      }
+    ]
+  }
+}

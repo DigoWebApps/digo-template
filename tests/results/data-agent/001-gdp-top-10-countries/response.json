@@ -1,0 +1,89 @@
+[
+  {
+    "type": "TEXT",
+    "value": "I've successfully retrieved the top 10 countries by GDP for 2024 from Worldometers. The data shows nominal GDP values in trillions of USD for each country. This is a time-static table showing a snapshot of 2024 GDP rankings, with the United States leading at $29.3 trillion, followed by China at $18.75 trillion, and Germany at $4.68 trillion. All values are in current USD without inflation adjustments."
+  },
+  {
+    "type": "ARTIFACT",
+    "value": {
+      "DATA_TABLE_DEFINITION": {
+        "timeArray": [],
+        "columns": [
+          {
+            "id": "gdp",
+            "name": "GDP (Trillions USD)",
+            "type": "NUMBER",
+            "definition": {
+              "defaultValue": 0,
+              "min": 0,
+              "units": "Trillions USD",
+              "decimals": 2
+            }
+          }
+        ],
+        "rows": [
+          {
+            "id": "united_states",
+            "name": "United States",
+            "hidden": false,
+            "gdp": 29.3
+          },
+          {
+            "id": "china",
+            "name": "China",
+            "hidden": false,
+            "gdp": 18.75
+          },
+          {
+            "id": "germany",
+            "name": "Germany",
+            "hidden": false,
+            "gdp": 4.68
+          },
+          {
+            "id": "japan",
+            "name": "Japan",
+            "hidden": false,
+            "gdp": 4.02
+          },
+          {
+            "id": "india",
+            "name": "India",
+            "hidden": false,
+            "gdp": 3.91
+          },
+          {
+            "id": "united_kingdom",
+            "name": "United Kingdom",
+            "hidden": false,
+            "gdp": 3.64
+          },
+          {
+            "id": "france",
+            "name": "France",
+            "hidden": false,
+            "gdp": 3.16
+          },
+          {
+            "id": "italy",
+            "name": "Italy",
+            "hidden": false,
+            "gdp": 2.37
+          },
+          {
+            "id": "canada",
+            "name": "Canada",
+            "hidden": false,
+            "gdp": 2.24
+          },
+          {
+            "id": "brazil",
+            "name": "Brazil",
+            "hidden": false,
+            "gdp": 2.18
+          }
+        ]
+      }
+    }
+  }
+]

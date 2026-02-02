@@ -1,0 +1,228 @@
+[
+  {
+    "id": "background-color",
+    "name": "Background Color",
+    "isGlobal": true,
+    "group": "Appearance",
+    "type": "COLOR",
+    "definition": {
+      "defaultValue": "#ffffff"
+    }
+  },
+  {
+    "id": "chart-width",
+    "name": "Chart Width",
+    "isGlobal": true,
+    "group": "Layout",
+    "type": "NUMBER",
+    "definition": {
+      "defaultValue": 800,
+      "min": 200,
+      "max": 2000,
+      "units": "px"
+    }
+  },
+  {
+    "id": "chart-height",
+    "name": "Chart Height",
+    "isGlobal": true,
+    "group": "Layout",
+    "type": "NUMBER",
+    "definition": {
+      "defaultValue": 400,
+      "min": 200,
+      "max": 1000,
+      "units": "px"
+    }
+  },
+  {
+    "id": "line-color",
+    "name": "Line Color",
+    "isGlobal": true,
+    "group": "Appearance",
+    "type": "COLOR",
+    "definition": {
+      "defaultValue": "#8884d8"
+    }
+  },
+  {
+    "id": "stroke-width",
+    "name": "Line Stroke Width",
+    "isGlobal": true,
+    "group": "Appearance",
+    "type": "NUMBER",
+    "definition": {
+      "defaultValue": 2,
+      "min": 1,
+      "max": 10,
+      "units": "px"
+    }
+  },
+  {
+    "id": "show-grid",
+    "name": "Show Grid",
+    "isGlobal": true,
+    "group": "Appearance",
+    "type": "BOOLEAN",
+    "definition": {
+      "defaultValue": true
+    }
+  },
+  {
+    "id": "show-x-axis",
+    "name": "Show X Axis",
+    "isGlobal": true,
+    "group": "Axes",
+    "type": "BOOLEAN",
+    "definition": {
+      "defaultValue": true
+    }
+  },
+  {
+    "id": "show-y-axis",
+    "name": "Show Y Axis",
+    "isGlobal": true,
+    "group": "Axes",
+    "type": "BOOLEAN",
+    "definition": {
+      "defaultValue": true
+    }
+  },
+  {
+    "id": "x-axis-label",
+    "name": "X Axis Label",
+    "isGlobal": true,
+    "group": "Axes",
+    "type": "TEXT",
+    "definition": {
+      "defaultValue": "Quarter",
+      "placeholder": "Enter X axis label"
+    }
+  },
+  {
+    "id": "y-axis-label",
+    "name": "Y Axis Label",
+    "isGlobal": true,
+    "group": "Axes",
+    "type": "TEXT",
+    "definition": {
+      "defaultValue": "Revenue",
+      "placeholder": "Enter Y axis label"
+    }
+  },
+  {
+    "id": "chart-title",
+    "name": "Chart Title",
+    "isGlobal": true,
+    "group": "Text",
+    "type": "TEXT",
+    "definition": {
+      "defaultValue": "Quarterly Revenue 2024",
+      "placeholder": "Enter chart title"
+    }
+  },
+  {
+    "id": "smooth-curve",
+    "name": "Smooth Curve",
+    "isGlobal": true,
+    "group": "Appearance",
+    "type": "BOOLEAN",
+    "definition": {
+      "defaultValue": true
+    }
+  },
+  {
+    "id": "show-dots",
+    "name": "Show Data Points",
+    "isGlobal": true,
+    "group": "Appearance",
+    "type": "BOOLEAN",
+    "definition": {
+      "defaultValue": true
+    }
+  },
+  {
+    "id": "margin-top",
+    "name": "Top Margin",
+    "isGlobal": true,
+    "group": "Layout",
+    "type": "NUMBER",
+    "definition": {
+      "defaultValue": 20,
+      "min": 0,
+      "max": 100,
+      "units": "px"
+    }
+  },
+  {
+    "id": "margin-right",
+    "name": "Right Margin",
+    "isGlobal": true,
+    "group": "Layout",
+    "type": "NUMBER",
+    "definition": {
+      "defaultValue": 30,
+      "min": 0,
+      "max": 100,
+      "units": "px"
+    }
+  },
+  {
+    "id": "margin-bottom",
+    "name": "Bottom Margin",
+    "isGlobal": true,
+    "group": "Layout",
+    "type": "NUMBER",
+    "definition": {
+      "defaultValue": 20,
+      "min": 0,
+      "max": 100,
+      "units": "px"
+    }
+  },
+  {
+    "id": "margin-left",
+    "name": "Left Margin",
+    "isGlobal": true,
+    "group": "Layout",
+    "type": "NUMBER",
+    "definition": {
+      "defaultValue": 20,
+      "min": 0,
+      "max": 100,
+      "units": "px"
+    }
+  },
+  {
+    "id": "line-value",
+    "name": "Line Value",
+    "isGlobal": false,
+    "group": "Data",
+    "type": "NUMBER",
+    "definition": {
+      "defaultValue": 0,
+      "min": 0
+    }
+  },
+  {
+    "id": "line-label",
+    "name": "Line Label",
+    "isGlobal": false,
+    "group": "Data",
+    "type": "TEXT",
+    "definition": {
+      "defaultValue": "",
+      "placeholder": "Label"
+    }
+  },
+  {
+    "id": "line-color",
+    "name": "Line Point Color",
+    "isGlobal": false,
+    "group": "Data",
+    "type": "COLOR",
+    "definition": {
+      "defaultValue": "#8884d8"
+    }
+  }
+]

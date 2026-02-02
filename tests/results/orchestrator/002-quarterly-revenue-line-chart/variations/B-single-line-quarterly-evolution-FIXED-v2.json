@@ -1,0 +1,40 @@
+{
+  "description": "Single company showing quarterly revenue evolution - PROPERLY accessing timeArray and array data",
+  "DATA_TABLE_DEFINITION": {
+    "timeArray": [
+      "Q1 2024",
+      "Q2 2024",
+      "Q3 2024",
+      "Q4 2024"
+    ],
+    "columns": [
+      {
+        "id": "revenue",
+        "name": "Revenue (USD)",
+        "type": "NUMBER",
+        "isArray": true,
+        "definition": {
+          "defaultValue": 0,
+          "min": 0,
+          "units": "USD",
+          "decimals": 0
+        }
+      }
+    ],
+    "rows": [
+      {
+        "id": "company_revenue",
+        "name": "Company Revenue",
+        "hidden": false,
+        "revenue": [125000, 148000, 162000, 195000]
+      }
+    ]
+  },
+  "CODE_FILES": {
+    "/asset.tsx": "import { DigoAsset } from '@digo-org/digo-api';\nimport { ResponsiveContainer, LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'recharts';\n\nexport class Asset extends DigoAsset {\n  constructor() {\n    super();\n  }\n\n  override render() {\n    // For single-line time series: directly access the first row's array column\n    // This is the CORRECT pattern for timeArray + isArray visualization\n    const firstRow = this.instances?.[0];\n    const revenueData = firstRow?.revenue as number[] || [];\n    \n    // Transform: each timeArray element becomes a chart point\n    const chartData = this.timeArray?.map((timeLabel, index) => ({\n      name: timeLabel,\n      revenue: revenueData[index] || 0\n    })) || [];\n\n    return (\n      <div style={{\n        width: '100%',\n        height: '100%',\n        backgroundColor: this.globalParameters['background-color'] as string || '#ffffff',\n        padding: '20px',\n        fontFamily: 'sans-serif',\n        boxSizing: 'border-box'\n      }}>\n        {this.globalParameters['show-title'] && (\n          <h2 style={{\n            textAlign: 'center',\n            margin: '0 0 20px 0',\n            fontSize: '24px',\n            color: '#1f2937',\n            fontWeight: 'bold'\n          }}>\n            {this.globalParameters['chart-title'] as string || 'Quarterly Revenue 2024'}\n          </h2>\n        )}\n\n        <ResponsiveContainer width=\"100%\" height=\"100%\">\n          <LineChart\n            data={chartData}\n            margin={{ top: 10, right: 30, left: 0, bottom: 0 }}\n          >\n            {this.globalParameters['show-grid'] && (\n              <CartesianGrid strokeDasharray=\"3 3\" stroke=\"#e5e7eb\" />\n            )}\n\n            <XAxis \n              dataKey=\"name\" \n              stroke=\"#6b7280\"\n              label={{ value: 'Quarter', position: 'insideBottom', offset: -5 }}\n            />\n            \n            <YAxis \n              stroke=\"#6b7280\"\n              label={{ value: 'Revenue (USD)', angle: -90, position: 'insideLeft' }}\n            />\n\n            {this.globalParameters['show-tooltip'] && (\n              <Tooltip \n                formatter={(value: number) => `$${value.toLocaleString()}`}\n                labelFormatter={(label) => `Quarter: ${label}`}\n              />\n            )}\n\n            {this.globalParameters['show-legend'] && <Legend />}\n\n            <Line\n              type={this.globalParameters['smooth-curve'] ? 'monotone' : 'linear'}\n              dataKey=\"revenue\"\n              stroke={this.globalParameters['line-color'] as string || '#3b82f6'}\n              strokeWidth={this.globalParameters['stroke-width'] as number || 2}\n              dot={this.globalParameters['show-dots']}\n              name=\"Revenue\"\n              activeDot={{ r: 8 }}\n            />\n          </LineChart>\n        </ResponsiveContainer>\n      </div>\n    );\n  }\n}",
+    "/package.json": "{\n  \"name\": \"quarterly-evolution-line-chart\",\n  \"version\": \"1.0.0\",\n  \"main\": \"/index.tsx\",\n  \"dependencies\": {\n    \"react\": \"^19.0.0\",\n    \"react-dom\": \"^19.0.0\",\n    \"@digo-org/digo-api\": \"latest\",\n    \"recharts\": \"^2.12.0\"\n  }\n}",
+    "/styles.css": "",
+    "/definition.json": "[\n  {\n    \"id\": \"background-color\",\n    \"name\": \"Background Color\",\n    \"isGlobal\": true,\n    \"group\": \"Appearance\",\n    \"type\": \"COLOR\",\n    \"definition\": {\n      \"defaultValue\": \"#ffffff\"\n    }\n  },\n  {\n    \"id\": \"chart-title\",\n    \"name\": \"Chart Title\",\n    \"isGlobal\": true,\n    \"group\": \"Text\",\n    \"type\": \"TEXT\",\n    \"definition\": {\n      \"defaultValue\": \"Quarterly Revenue Evolution 2024\",\n      \"placeholder\": \"Enter chart title\"\n    }\n  },\n  {\n    \"id\": \"show-title\",\n    \"name\": \"Show Title\",\n    \"isGlobal\": true,\n    \"group\": \"Layout\",\n    \"type\": \"BOOLEAN\",\n    \"definition\": {\n      \"defaultValue\": true\n    }\n  },\n  {\n    \"id\": \"show-grid\",\n    \"name\": \"Show Grid\",\n    \"isGlobal\": true,\n    \"group\": \"Layout\",\n    \"type\": \"BOOLEAN\",\n    \"definition\": {\n      \"defaultValue\": true\n    }\n  },\n  {\n    \"id\": \"show-tooltip\",\n    \"name\": \"Show Tooltip\",\n    \"isGlobal\": true,\n    \"group\": \"Interaction\",\n    \"type\": \"BOOLEAN\",\n    \"definition\": {\n      \"defaultValue\": true\n    }\n  },\n  {\n    \"id\": \"show-legend\",\n    \"name\": \"Show Legend\",\n    \"isGlobal\": true,\n    \"group\": \"Layout\",\n    \"type\": \"BOOLEAN\",\n    \"definition\": {\n      \"defaultValue\": true\n    }\n  },\n  {\n    \"id\": \"smooth-curve\",\n    \"name\": \"Smooth Curve\",\n    \"isGlobal\": true,\n    \"group\": \"Appearance\",\n    \"type\": \"BOOLEAN\",\n    \"definition\": {\n      \"defaultValue\": true\n    }\n  },\n  {\n    \"id\": \"show-dots\",\n    \"name\": \"Show Data Points\",\n    \"isGlobal\": true,\n    \"group\": \"Appearance\",\n    \"type\": \"BOOLEAN\",\n    \"definition\": {\n      \"defaultValue\": true\n    }\n  },\n  {\n    \"id\": \"line-color\",\n    \"name\": \"Line Color\",\n    \"isGlobal\": true,\n    \"group\": \"Appearance\",\n    \"type\": \"COLOR\",\n    \"definition\": {\n      \"defaultValue\": \"#3b82f6\"\n    }\n  },\n  {\n    \"id\": \"stroke-width\",\n    \"name\": \"Line Width\",\n    \"isGlobal\": true,\n    \"group\": \"Appearance\",\n    \"type\": \"NUMBER\",\n    \"definition\": {\n      \"defaultValue\": 2,\n      \"min\": 1,\n      \"max\": 10,\n      \"units\": \"px\"\n    }\n  }\n]"
+  },
+  "LINKS": {}
+}

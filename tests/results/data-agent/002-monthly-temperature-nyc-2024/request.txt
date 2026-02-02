@@ -1,0 +1,1 @@
+Get monthly average temperature data for New York City for the year 2024.

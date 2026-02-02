@@ -1,0 +1,9 @@
+{
+  "agentType": "data-agent",
+  "testNumber": "001",
+  "description": "Get GDP top 10 countries in 2024",
+  "timestamp": "2026-01-28T18:45:00.000Z",
+  "passed": true,
+  "errors": [],
+  "notes": "Static time data (empty timeArray), single numeric column with GDP values"
+}

@@ -1,0 +1,1 @@
+Create a simple bar chart visualization using recharts. The bars should be customizable in color, height, and labels.
