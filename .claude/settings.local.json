@@ -3,7 +3,8 @@
     "allow": [
       "WebSearch",
       "WebFetch(domain:unpkg.com)",
-      "Bash(cat:*)"
+      "Bash(cat:*)",
+      "WebFetch(domain:ember-energy.org)"
     ],
     "deny": [],
     "ask": []
