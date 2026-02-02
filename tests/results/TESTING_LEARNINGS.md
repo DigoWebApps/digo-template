@@ -11,35 +11,7 @@ This document captures critical patterns, discoveries, and fixes from testing DI
 
 ## 🔑 Critical Discoveries
 
-### 1. **VizParameter DOES Support `isArray` Property**
-
-**DISCOVERY**: The VizParameter schema includes an optional `isArray` property that was previously undocumented in agent instructions.
-
-**Rule**: When linking a VizParameter to a DataColumn that has `isArray: true`, the VizParameter MUST also have `isArray: true`.
-
-**Evidence**: Working 3D cube example (`001-3d-cube-threejs/DIGO_ARTIFACT_WORKING.json`)
-
-```json
-// In definition.json
-{
-  "id": "position-x",
-  "name": "Position X",
-  "isGlobal": false,
-  "type": "NUMBER",
-  "isArray": false,  // ← VizParameter HAS this property
-  "definition": {
-    "defaultValue": 0,
-    "min": -10,
-    "max": 10
-  }
-}
-```
-
-**Impact**: TimeArray visualizations REQUIRE this for proper data linking.
-
----
-
-### 2. **Spread Operator Position in Data Mapping**
+### 1. **Spread Operator Position in Data Mapping**
 
 **CRITICAL RULE**: The spread operator `...instance` MUST be the FIRST property in object mapping.
 
@@ -67,7 +39,7 @@ const data = this.instances?.map((instance, index) => ({
 
 ---
 
-### 3. **Export Statement Pattern**
+### 2. **Export Statement Pattern**
 
 **RULE**: Always use named export, never default export.
 
@@ -85,7 +57,7 @@ export class Asset extends DigoAsset { }
 
 ---
 
-### 4. **React 19 Compatibility**
+### 3. **React 19 Compatibility**
 
 **Issue**: @react-three/fiber v8.x is incompatible with React 19.
 
@@ -132,7 +104,7 @@ export class Asset extends DigoAsset { }
   "name": "Line Values",
   "isGlobal": false,        // ← Instance parameter
   "type": "NUMBER",
-  "isArray": true,          // ← MUST match DataColumn
+  "isArray": true,
   "definition": {
     "defaultValue": 0,
     "min": 0
@@ -191,7 +163,7 @@ const chartData = this.timeArray?.map((timeLabel, index) => {
   "name": "Line Values",
   "isGlobal": false,        // ← Instance parameter
   "type": "NUMBER",
-  "isArray": true,          // ← CRITICAL for receiving array
+  "isArray": true,
   "definition": {
     "defaultValue": 0,
     "min": 0
@@ -219,7 +191,6 @@ const chartData = this.timeArray?.map((timeLabel, index) => ({
 />
 ```
 
-**Key Insight**: Without `isArray: true`, the parameter receives `undefined` instead of the array.
 
 **Location**: `B-single-line-quarterly-evolution-WORKING.json`
 
@@ -249,7 +220,7 @@ const chartData = this.timeArray?.map((timeLabel, index) => ({
   "name": "Quarter Values",
   "isGlobal": false,
   "type": "NUMBER",
-  "isArray": true,          // ← Array of yearly values
+  "isArray": true,
   "definition": {
     "defaultValue": 0,
     "min": 0
@@ -442,7 +413,6 @@ const renderCustomLabel = (props: any) => {
 - [ ] Use `export class Asset extends DigoAsset`
 - [ ] Add `override` keyword to render method
 - [ ] Spread operator FIRST: `{...instance, name: ..., value: ...}`
-- [ ] Add `isArray: true` when linking to array DataColumns
 - [ ] Use instance parameters (`isGlobal: false`) for row-varying data
 
 ### Package Dependencies
@@ -453,7 +423,6 @@ const renderCustomLabel = (props: any) => {
 
 ### TimeArray Visualizations
 - [ ] Identify pattern: Multiple series (A), Single array (B), or Inverted (C)
-- [ ] Add `isArray: true` to array parameters
 - [ ] Map timeArray to x-axis or series as appropriate
 - [ ] Test with actual time-based data
 
@@ -484,15 +453,12 @@ All working artifacts are suffixed with `_WORKING.json`:
 ## 🎓 Agent Instruction Updates Needed
 
 ### Visuals Agent
-- **ADD**: VizParameter supports `isArray` property
-- **ADD**: Must set `isArray: true` when linking to array DataColumns
 - **ADD**: React 19 requires @react-three/fiber v9+
 - **ADD**: Recharts color mapping uses `fill` property
 - **EMPHASIZE**: Spread operator MUST be first in object mapping
 - **EMPHASIZE**: Always use named export, not default
 
 ### Links Agent
-- **ADD**: Verify VizParameter has `isArray: true` when linking to array DataColumns
 - **ADD**: Instance parameters required for row-varying data
 
 ### Data Agent
@@ -505,9 +471,8 @@ All working artifacts are suffixed with `_WORKING.json`:
 
 1. **Update Agent Instructions**: Incorporate all learnings into `.claude/agents/` files
 2. **Create Reference Library**: Add working artifacts to official examples
-3. **Schema Validation**: Update type definitions to include `isArray` on VizParameter
-4. **Testing Suite**: Create automated tests for these patterns
-5. **Documentation**: Update DIGO API docs with TimeArray patterns
+3. **Testing Suite**: Create automated tests for these patterns
+4. **Documentation**: Update DIGO API docs with TimeArray patterns
 
 ---
 
