@@ -49,35 +49,66 @@ export class Asset extends DigoAsset {  // ← EXACT: export class Asset extends
 - MUST have constructor() that calls super()
 - MUST have render() method that returns ReactNode
 
+### ⚠️ DIGOASSET IS A PLAIN TYPESCRIPT CLASS (NOT React.Component)
+
+DigoAsset only has three protected properties and an abstract `render()` method:
+
+| Property | Type | Description |
+|----------|------|-------------|
+| `this.timeArray` | `string[]` | Time labels (e.g., ["2014", "2015", ...]) |
+| `this.instances` | `Instance[]` | Data instances (one per data row) |
+| `this.globalParameters` | `GlobalParameters` | Global parameter key-value map |
+
+Rendering is imperative: `updateUI()` calls `this.rootElement.render(this.render())` via a React 19 `createRoot`. Updates are triggered by `window.postMessage` events (`UPDATE_DEFINITION`, `UPDATE_TIME_ARRAY`).
+
+**Since DigoAsset is not React.Component, no React class features exist on it** — no lifecycle methods, no `setState`, no `createRef`, no `this.timeIndex`, etc. Only the three properties above and `render()` are available.
+
+**When you need React features (hooks, state, refs, effects)**, create a functional component and return it from `render()`:
+
+```typescript
+import React, { useRef, useEffect, useState } from 'react';
+import { DigoAsset } from '@digo-org/digo-api';
+
+function MyVisualization({ instances, globalParameters, timeArray }: {
+  instances: any[];
+  globalParameters: Record<string, any>;
+  timeArray: string[];
+}) {
+  const svgRef = useRef<SVGSVGElement>(null);
+  const [count, setCount] = useState(0);
+  useEffect(() => { /* imperative logic here */ }, [instances, timeArray]);
+  return <svg ref={svgRef} />;
+}
+
+export class Asset extends DigoAsset {
+  constructor() { super(); }
+  render() {
+    return (
+      <MyVisualization
+        instances={this.instances || []}
+        globalParameters={this.globalParameters || {}}
+        timeArray={this.timeArray || []}
+      />
+    );
+  }
+}
+```
+
+**When is the wrapper needed?** Recharts visualizations can often be rendered as pure JSX directly in `render()`. Libraries that require imperative DOM access (D3.js, Canvas, Three.js without @react-three/fiber) always need the functional wrapper pattern.
+
 ## COMMON MISTAKES TO AVOID
 
-**❌ WRONG - Default export:**
-```typescript
-export default class MyVisualization extends DigoAsset { }
-```
+**Class & export errors:**
+- ❌ `export default class` or class name other than `Asset`
+- ✅ `export class Asset extends DigoAsset`
 
-**❌ WRONG - Different class name:**
-```typescript
-export class RenewableEnergyChart extends DigoAsset { }
-```
+**Spread operator position:**
+- ❌ `{ name: instance['label'], ...instance }` — spread last overwrites your overrides
+- ✅ `{ ...instance, name: instance['label'] }` — spread first, then override
 
-**❌ WRONG - Spread operator last:**
-```typescript
-const data = this.instances?.map(instance => ({
-  name: instance['label'],
-  ...instance  // ← WRONG POSITION
-}));
-```
-
-**✅ CORRECT:**
-```typescript
-export class Asset extends DigoAsset { }  // Named export, class named "Asset"
-
-const data = this.instances?.map(instance => ({
-  ...instance,  // ← Spread FIRST
-  name: instance['label']
-}));
-```
+**Using React.Component features on DigoAsset** (see architecture section above):
+- ❌ Any class-level React feature: lifecycle methods, `createRef`, `setState`, or properties that don't exist on DigoAsset (e.g. `this.timeIndex`)
+- ✅ Use the functional component wrapper pattern for all React features (hooks, refs, state, effects)
 
 ## WORKFLOW PROCESS (FOLLOW STEP-BY-STEP)
 
@@ -118,7 +149,7 @@ const data = this.instances?.map(instance => ({
 - [ ] Create VizParameter array
 - [ ] Group parameters logically with capitalized group names
 - [ ] Design both global and instance-level parameters
-- [ ] DO NOT add `isArray` property to VizParameters
+- [ ] Add `"isArray": true` ONLY to instance parameters that accept array values (time series data)
 - [ ] Implement parameter normalization for consistent behavior
 
 **CHECKPOINT:** All parameters have proper structure and groups.
@@ -142,6 +173,9 @@ const data = this.instances?.map(instance => ({
 - [ ] Does the Asset class extend DigoAsset?
 - [ ] Is there a constructor() that calls super()?
 - [ ] Is there a render() method that returns ReactNode?
+
+### DigoAsset Architecture Check
+- [ ] Does the Asset class ONLY use `this.instances`, `this.globalParameters`, `this.timeArray`, and `render()`? (No other properties or methods exist on DigoAsset — use a functional component wrapper for React features)
 
 ### File Completeness Checks
 - [ ] Are all 4 files present: /asset.tsx, /package.json, /styles.css, /definition.json?
@@ -303,6 +337,13 @@ render() {
 - Map `this.timeArray` to create data points
 - Do NOT create a time parameter - time comes from `this.timeArray`
 
+### Multi-Row Time Series Data (Racing Charts, Animated Comparisons)
+
+When multiple rows each have array values over time (e.g., countries with emissions per year):
+- Each instance has array-typed values matching `timeArray` length
+- The visualization must self-manage a `timeIndex` via `useState` + `useEffect` timer in a functional wrapper (DigoAsset has no time index property)
+- At each time step, extract the current value from each instance's array and sort/render accordingly
+
 ### Instance Parameters - CRITICAL MAPPING PATTERN
 
 **⚠️ CRITICAL: Spread Operator Position**
@@ -363,10 +404,10 @@ override render() {
 ## LIBRARY-SPECIFIC GUIDELINES
 
 ### D3.js Visualizations
-- Use D3 for data binding and DOM manipulation
-- Implement proper update patterns for reactive data
+- D3 requires imperative DOM access, so you MUST use the functional component wrapper pattern (see architecture section above)
+- Use `useRef` for SVG/container references, `useEffect` for D3 bindings, `useState` for animation state
+- Use D3 `transition().duration()` for smooth animations
 - Handle enter/update/exit selections appropriately
-- Consider performance for large datasets
 
 ### Recharts Visualizations  
 - Leverage Recharts components for standard chart types
@@ -429,8 +470,8 @@ Before finalizing your output, ensure:
 - **Parameter normalization is ESSENTIAL** - Design for consistent behavior across data ranges
 - **Output format is RIGID** - Return only CODE_FILES artifact, Orchestrator will wrap the response
 
+5. **DIGOASSET IS A PLAIN CLASS** - Only `this.instances`, `this.globalParameters`, `this.timeArray`, and `render()` exist. For any React features, use a functional component wrapper returned from `render()`.
+
 ### Final Checkpoint Before Output
 
-**ASK YOURSELF:** "Is my class named `Asset` with a named export?"
-- If NO → FIX IT IMMEDIATELY
-- If YES → Proceed with output
+**ASK YOURSELF:** "Does my Asset class only use the three DigoAsset properties and `render()`? Is the class named `Asset` with a named export? For imperative code, am I using a functional wrapper?"

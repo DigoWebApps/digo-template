@@ -1,0 +1,10 @@
+User Request:
+"I want to see the sea level rise projection for the next 50 years in an area chart with confident intervals"
+
+Details:
+- Sea level rise projections from 2025 to 2075 (IPCC AR6 SSP2-4.5 scenario)
+- Area chart with confidence intervals (17th-83rd percentile band)
+- Central projection line with shaded uncertainty band
+- Dark theme visualization using Recharts ComposedChart
+- Time series data pattern: single row with array columns, timeArray at 5-year intervals
+- Confidence band technique: stacked Areas (invisible bandBase + visible bandRange)

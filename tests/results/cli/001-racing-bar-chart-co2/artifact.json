@@ -1,0 +1,138 @@
+[
+  {
+    "type": "TEXT",
+    "value": "Here is your complete Racing Bar Chart project showing CO2 emissions by country from 2014 to 2023. The visualization uses D3.js to create an animated racing bar chart where countries compete by their annual CO2 emissions (in million metric tons). Key features:\n\n- Horizontal bars sorted by emission value, with the highest emitter on top\n- Smooth D3 transitions as country rankings change between years\n- Country labels inside bars and emission values at bar ends\n- Current year displayed as a large watermark\n- Dark theme with configurable colors, bar dimensions, and animation speed\n- Self-animating playback that cycles through all 10 years with play/pause control\n\nData sourced from the Global Carbon Budget 2024, Worldometer/EDGAR, and Our World in Data. The dataset covers the top 10 CO2 emitting countries: China, United States, India, Russia, Japan, Germany, South Korea, Iran, Saudi Arabia, and Indonesia."
+  },
+  {
+    "type": "ARTIFACT",
+    "value": {
+      "DATA_TABLE_DEFINITION": {
+        "timeArray": ["2014", "2015", "2016", "2017", "2018", "2019", "2020", "2021", "2022", "2023"],
+        "columns": [
+          {
+            "id": "co2_emissions",
+            "name": "CO2 Emissions",
+            "type": "NUMBER",
+            "isArray": true,
+            "definition": {
+              "defaultValue": 0,
+              "min": 0,
+              "units": "Mt CO2",
+              "decimals": 1
+            }
+          },
+          {
+            "id": "country_color",
+            "name": "Country Color",
+            "type": "COLOR",
+            "definition": {
+              "defaultValue": "#4fc3f7"
+            }
+          },
+          {
+            "id": "country_label",
+            "name": "Country Name",
+            "type": "TEXT",
+            "definition": {
+              "defaultValue": "",
+              "placeholder": "Country name"
+            }
+          }
+        ],
+        "rows": [
+          {
+            "id": "china",
+            "name": "China",
+            "hidden": false,
+            "co2_emissions": [10909.7, 10769.0, 10786.1, 11026.1, 11553.5, 11819.4, 12037.3, 12717.7, 12667.4, 13174.1],
+            "country_color": "#e74c3c",
+            "country_label": "China"
+          },
+          {
+            "id": "united_states",
+            "name": "United States",
+            "hidden": false,
+            "co2_emissions": [5244.4, 5133.6, 5029.2, 4959.6, 5117.6, 4967.0, 4466.7, 4768.9, 4853.8, 4834.0],
+            "country_color": "#3498db",
+            "country_label": "United States"
+          },
+          {
+            "id": "india",
+            "name": "India",
+            "hidden": false,
+            "co2_emissions": [2243.5, 2260.5, 2303.7, 2434.1, 2573.6, 2541.4, 2320.7, 2528.1, 2693.0, 2857.3],
+            "country_color": "#f39c12",
+            "country_label": "India"
+          },
+          {
+            "id": "russia",
+            "name": "Russia",
+            "hidden": false,
+            "co2_emissions": [1720.5, 1726.8, 1700.4, 1730.5, 1806.8, 1877.0, 1789.3, 1932.7, 1909.0, 1937.7],
+            "country_color": "#9b59b6",
+            "country_label": "Russia"
+          },
+          {
+            "id": "japan",
+            "name": "Japan",
+            "hidden": false,
+            "co2_emissions": [1275.3, 1234.7, 1221.4, 1205.9, 1166.6, 1127.7, 1062.9, 1075.7, 1082.6, 1055.6],
+            "country_color": "#1abc9c",
+            "country_label": "Japan"
+          },
+          {
+            "id": "germany",
+            "name": "Germany",
+            "hidden": false,
+            "co2_emissions": [773.3, 779.7, 784.0, 769.1, 744.6, 693.5, 637.4, 679.3, 673.6, 583.0],
+            "country_color": "#2ecc71",
+            "country_label": "Germany"
+          },
+          {
+            "id": "south_korea",
+            "name": "South Korea",
+            "hidden": false,
+            "co2_emissions": [623.7, 642.9, 660.1, 668.1, 670.9, 651.5, 615.3, 642.9, 635.5, 626.0],
+            "country_color": "#e67e22",
+            "country_label": "South Korea"
+          },
+          {
+            "id": "iran",
+            "name": "Iran",
+            "hidden": false,
+            "co2_emissions": [635.2, 628.8, 641.5, 664.9, 676.6, 664.1, 656.8, 677.8, 686.4, 700.1],
+            "country_color": "#8e44ad",
+            "country_label": "Iran"
+          },
+          {
+            "id": "saudi_arabia",
+            "name": "Saudi Arabia",
+            "hidden": false,
+            "co2_emissions": [585.5, 611.0, 609.0, 602.8, 579.5, 579.9, 571.3, 590.6, 607.9, 620.1],
+            "country_color": "#16a085",
+            "country_label": "Saudi Arabia"
+          },
+          {
+            "id": "indonesia",
+            "name": "Indonesia",
+            "hidden": false,
+            "co2_emissions": [505.1, 512.1, 506.3, 542.1, 596.9, 636.8, 594.3, 611.8, 692.2, 713.0],
+            "country_color": "#d35400",
+            "country_label": "Indonesia"
+          }
+        ]
+      },
+      "CODE_FILES": {
+        "/asset.tsx": "import React, { useRef, useEffect, useState, useCallback } from 'react';\nimport * as d3 from 'd3';\nimport { DigoAsset } from '@digo-org/digo-api';\n\ninterface BarData {\n  id: string;\n  label: string;\n  value: number;\n  color: string;\n}\n\ninterface RacingBarChartProps {\n  instances: any[];\n  globalParameters: Record<string, any>;\n  timeArray: string[];\n}\n\nfunction RacingBarChart({ instances, globalParameters, timeArray }: RacingBarChartProps) {\n  const svgRef = useRef<SVGSVGElement>(null);\n  const containerRef = useRef<HTMLDivElement>(null);\n  const [timeIndex, setTimeIndex] = useState(0);\n  const [isPlaying, setIsPlaying] = useState(true);\n  const intervalRef = useRef<number | null>(null);\n\n  const bgColor = (globalParameters?.['background-color'] as string) || '#1a1a2e';\n  const chartTitle = (globalParameters?.['chart-title'] as string) || 'CO2 Emissions by Country';\n  const showTitle = globalParameters?.['show-title'] !== false;\n  const barHeight = (globalParameters?.['bar-height'] as number) || 35;\n  const barGap = (globalParameters?.['bar-gap'] as number) || 5;\n  const animDuration = (globalParameters?.['animation-duration'] as number) || 500;\n\n  const numTimeSteps = timeArray?.length || 0;\n  const currentYear = timeArray?.[timeIndex] || '';\n\n  // Auto-play timer\n  useEffect(() => {\n    if (isPlaying && numTimeSteps > 0) {\n      intervalRef.current = window.setInterval(() => {\n        setTimeIndex(prev => {\n          const next = prev + 1;\n          if (next >= numTimeSteps) {\n            return 0;\n          }\n          return next;\n        });\n      }, animDuration + 800);\n    }\n    return () => {\n      if (intervalRef.current !== null) {\n        clearInterval(intervalRef.current);\n        intervalRef.current = null;\n      }\n    };\n  }, [isPlaying, numTimeSteps, animDuration]);\n\n  // D3 chart update\n  useEffect(() => {\n    const svg = svgRef.current;\n    const container = containerRef.current;\n    if (!svg || !container) return;\n\n    const width = container.clientWidth || 800;\n    const height = container.clientHeight || 600;\n    const margin = { top: showTitle ? 70 : 20, right: 130, bottom: 50, left: 20 };\n    const innerWidth = width - margin.left - margin.right;\n    const innerHeight = height - margin.top - margin.bottom;\n\n    // Build sorted data\n    const data: BarData[] = (instances || []).map((instance: any, i: number) => {\n      const valuesArray = instance['co2-value'] as number[] | undefined;\n      const currentValue = Array.isArray(valuesArray) ? (valuesArray[timeIndex] || 0) : 0;\n      const label = (instance['bar-label'] as string) || 'Country ' + (i + 1);\n      const color = (instance['bar-color'] as string) || d3.schemeTableau10[i % 10];\n      return { id: instance.id || 'item-' + i, label, value: currentValue, color };\n    }).sort((a, b) => b.value - a.value);\n\n    const maxBars = Math.min(data.length, Math.floor(innerHeight / (barHeight + barGap)));\n    const visibleData = data.slice(0, maxBars);\n    const maxValue = d3.max(visibleData, d => d.value) || 1;\n\n    const xScale = d3.scaleLinear().domain([0, maxValue * 1.05]).range([0, innerWidth]);\n    const formatNumber = d3.format(',.0f');\n\n    const svgSel = d3.select(svg).attr('width', width).attr('height', height);\n\n    // Background\n    svgSel.selectAll('.bg-rect').data([0]).join('rect')\n      .attr('class', 'bg-rect')\n      .attr('width', width).attr('height', height).attr('fill', bgColor);\n\n    // Year watermark\n    svgSel.selectAll('.year-watermark').data([currentYear]).join('text')\n      .attr('class', 'year-watermark')\n      .attr('x', width - margin.right - 10)\n      .attr('y', height - 40)\n      .attr('text-anchor', 'end')\n      .attr('fill', 'rgba(255,255,255,0.06)')\n      .attr('font-size', Math.min(width * 0.28, 220))\n      .attr('font-weight', '900')\n      .attr('font-family', 'Arial, sans-serif')\n      .text(currentYear);\n\n    // Title\n    if (showTitle) {\n      svgSel.selectAll('.chart-title').data([chartTitle]).join('text')\n        .attr('class', 'chart-title')\n        .attr('x', margin.left + 10).attr('y', 32)\n        .attr('fill', '#ffffff').attr('font-size', 22)\n        .attr('font-weight', '700').attr('font-family', 'Arial, sans-serif')\n        .text(chartTitle);\n\n      svgSel.selectAll('.year-label').data([currentYear]).join('text')\n        .attr('class', 'year-label')\n        .attr('x', margin.left + 10).attr('y', 55)\n        .attr('fill', 'rgba(255,255,255,0.5)').attr('font-size', 15)\n        .attr('font-family', 'Arial, sans-serif')\n        .text('Year: ' + currentYear);\n    } else {\n      svgSel.selectAll('.chart-title').remove();\n      svgSel.selectAll('.year-label').remove();\n    }\n\n    // Main group\n    let mainGroup = svgSel.selectAll<SVGGElement, number>('.main-group').data([0]);\n    const mainGroupMerged = mainGroup.enter().append('g').attr('class', 'main-group')\n      .merge(mainGroup)\n      .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');\n\n    // --- BARS ---\n    const bars = mainGroupMerged.selectAll<SVGRectElement, BarData>('.bar')\n      .data(visibleData, d => d.id);\n\n    bars.exit().transition().duration(animDuration / 2)\n      .attr('width', 0).style('opacity', 0).remove();\n\n    bars.enter()\n      .append('rect').attr('class', 'bar')\n      .attr('x', 0)\n      .attr('y', (_d, i) => i * (barHeight + barGap))\n      .attr('width', 0)\n      .attr('height', barHeight)\n      .attr('rx', 4).attr('ry', 4)\n      .attr('fill', d => d.color)\n      .merge(bars)\n      .transition().duration(animDuration)\n      .attr('y', (_d, i) => i * (barHeight + barGap))\n      .attr('width', d => Math.max(0, xScale(d.value)))\n      .attr('height', barHeight)\n      .attr('fill', d => d.color);\n\n    // --- LABELS (inside bars) ---\n    const labels = mainGroupMerged.selectAll<SVGTextElement, BarData>('.bar-label')\n      .data(visibleData, d => d.id);\n\n    labels.exit().transition().duration(animDuration / 2).style('opacity', 0).remove();\n\n    labels.enter()\n      .append('text').attr('class', 'bar-label')\n      .attr('x', 8)\n      .attr('y', (_d, i) => i * (barHeight + barGap) + barHeight / 2)\n      .attr('dy', '0.35em')\n      .attr('fill', '#ffffff')\n      .attr('font-size', Math.max(11, barHeight * 0.38))\n      .attr('font-weight', '600')\n      .attr('font-family', 'Arial, sans-serif')\n      .style('opacity', 0)\n      .merge(labels)\n      .transition().duration(animDuration)\n      .attr('y', (_d, i) => i * (barHeight + barGap) + barHeight / 2)\n      .attr('font-size', Math.max(11, barHeight * 0.38))\n      .style('opacity', 1)\n      .text(d => d.label);\n\n    // --- VALUE LABELS ---\n    const valueLabels = mainGroupMerged.selectAll<SVGTextElement, BarData>('.value-label')\n      .data(visibleData, d => d.id);\n\n    valueLabels.exit().transition().duration(animDuration / 2).style('opacity', 0).remove();\n\n    valueLabels.enter()\n      .append('text').attr('class', 'value-label')\n      .attr('x', d => xScale(d.value) + 6)\n      .attr('y', (_d, i) => i * (barHeight + barGap) + barHeight / 2)\n      .attr('dy', '0.35em')\n      .attr('fill', 'rgba(255,255,255,0.85)')\n      .attr('font-size', Math.max(10, barHeight * 0.34))\n      .attr('font-weight', '500')\n      .attr('font-family', 'Arial, sans-serif')\n      .style('opacity', 0)\n      .merge(valueLabels)\n      .transition().duration(animDuration)\n      .attr('x', d => Math.max(0, xScale(d.value)) + 6)\n      .attr('y', (_d, i) => i * (barHeight + barGap) + barHeight / 2)\n      .attr('font-size', Math.max(10, barHeight * 0.34))\n      .style('opacity', 1)\n      .text(d => formatNumber(d.value) + ' Mt');\n\n  }, [timeIndex, instances, globalParameters, timeArray, showTitle, chartTitle, bgColor, barHeight, barGap, animDuration, currentYear]);\n\n  const togglePlay = useCallback(() => {\n    setIsPlaying(prev => !prev);\n  }, []);\n\n  return (\n    <div\n      ref={containerRef}\n      style={{\n        width: '100%',\n        height: '100%',\n        backgroundColor: bgColor,\n        overflow: 'hidden',\n        position: 'relative',\n        fontFamily: 'Arial, Helvetica Neue, sans-serif'\n      }}\n    >\n      <svg ref={svgRef} style={{ width: '100%', height: '100%' }} />\n      <button\n        onClick={togglePlay}\n        style={{\n          position: 'absolute',\n          bottom: 12,\n          left: 12,\n          padding: '6px 16px',\n          background: 'rgba(255,255,255,0.12)',\n          color: '#fff',\n          border: '1px solid rgba(255,255,255,0.25)',\n          borderRadius: 6,\n          cursor: 'pointer',\n          fontSize: 13,\n          fontFamily: 'Arial, sans-serif',\n          backdropFilter: 'blur(4px)'\n        }}\n      >\n        {isPlaying ? '⏸ Pause' : '▶ Play'}\n      </button>\n    </div>\n  );\n}\n\nexport class Asset extends DigoAsset {\n  constructor() {\n    super();\n  }\n\n  render() {\n    return (\n      <RacingBarChart\n        instances={this.instances || []}\n        globalParameters={this.globalParameters || {}}\n        timeArray={this.timeArray || []}\n      />\n    );\n  }\n}",
+        "/package.json": "{\n  \"name\": \"racing-bar-chart\",\n  \"version\": \"1.0.0\",\n  \"main\": \"/index.tsx\",\n  \"dependencies\": {\n    \"react\": \"^19.0.0\",\n    \"react-dom\": \"^19.0.0\",\n    \"@digo-org/digo-api\": \"latest\",\n    \"d3\": \"^7.9.0\"\n  }\n}",
+        "/styles.css": "",
+        "/definition.json": "[\n  {\n    \"id\": \"co2-value\",\n    \"name\": \"CO2 Emissions\",\n    \"group\": \"Data\",\n    \"isGlobal\": false,\n    \"type\": \"NUMBER\",\n    \"definition\": {\n      \"defaultValue\": 0,\n      \"min\": 0,\n      \"units\": \"Mt CO2\"\n    },\n    \"isArray\": true\n  },\n  {\n    \"id\": \"bar-color\",\n    \"name\": \"Bar Color\",\n    \"group\": \"Appearance\",\n    \"isGlobal\": false,\n    \"type\": \"COLOR\",\n    \"definition\": {\n      \"defaultValue\": \"#4fc3f7\"\n    }\n  },\n  {\n    \"id\": \"bar-label\",\n    \"name\": \"Country Label\",\n    \"group\": \"Data\",\n    \"isGlobal\": false,\n    \"type\": \"TEXT\",\n    \"definition\": {\n      \"defaultValue\": \"Country\",\n      \"placeholder\": \"Enter country name\"\n    }\n  },\n  {\n    \"id\": \"background-color\",\n    \"name\": \"Background Color\",\n    \"group\": \"Appearance\",\n    \"isGlobal\": true,\n    \"type\": \"COLOR\",\n    \"definition\": {\n      \"defaultValue\": \"#1a1a2e\"\n    }\n  },\n  {\n    \"id\": \"chart-title\",\n    \"name\": \"Chart Title\",\n    \"group\": \"Text\",\n    \"isGlobal\": true,\n    \"type\": \"TEXT\",\n    \"definition\": {\n      \"defaultValue\": \"CO2 Emissions by Country\",\n      \"placeholder\": \"Enter chart title\"\n    }\n  },\n  {\n    \"id\": \"show-title\",\n    \"name\": \"Show Title\",\n    \"group\": \"Text\",\n    \"isGlobal\": true,\n    \"type\": \"BOOLEAN\",\n    \"definition\": {\n      \"defaultValue\": true\n    }\n  },\n  {\n    \"id\": \"bar-height\",\n    \"name\": \"Bar Height\",\n    \"group\": \"Layout\",\n    \"isGlobal\": true,\n    \"type\": \"NUMBER\",\n    \"definition\": {\n      \"defaultValue\": 35,\n      \"min\": 15,\n      \"max\": 60,\n      \"units\": \"px\",\n      \"step\": 1\n    }\n  },\n  {\n    \"id\": \"bar-gap\",\n    \"name\": \"Bar Gap\",\n    \"group\": \"Layout\",\n    \"isGlobal\": true,\n    \"type\": \"NUMBER\",\n    \"definition\": {\n      \"defaultValue\": 5,\n      \"min\": 0,\n      \"max\": 20,\n      \"units\": \"px\",\n      \"step\": 1\n    }\n  },\n  {\n    \"id\": \"animation-duration\",\n    \"name\": \"Animation Duration\",\n    \"group\": \"Animation\",\n    \"isGlobal\": true,\n    \"type\": \"NUMBER\",\n    \"definition\": {\n      \"defaultValue\": 500,\n      \"min\": 100,\n      \"max\": 2000,\n      \"units\": \"ms\",\n      \"step\": 50\n    }\n  }\n]"
+      },
+      "LINKS": {
+        "co2-value": "co2_emissions",
+        "bar-color": "country_color",
+        "bar-label": "country_label"
+      }
+    }
+  }
+]

@@ -1,0 +1,67 @@
+{
+  "DATA_TABLE_DEFINITION": {
+    "timeArray": ["2025", "2030", "2035", "2040", "2045", "2050", "2055", "2060", "2065", "2070", "2075"],
+    "columns": [
+      {
+        "id": "central_projection",
+        "name": "Central Projection (Median)",
+        "type": "NUMBER",
+        "isArray": true,
+        "definition": {
+          "defaultValue": 0,
+          "min": 0,
+          "max": 500,
+          "units": "mm",
+          "decimals": 0
+        }
+      },
+      {
+        "id": "upper_bound",
+        "name": "Upper Bound (83rd Percentile)",
+        "type": "NUMBER",
+        "isArray": true,
+        "definition": {
+          "defaultValue": 0,
+          "min": 0,
+          "max": 600,
+          "units": "mm",
+          "decimals": 0
+        }
+      },
+      {
+        "id": "lower_bound",
+        "name": "Lower Bound (17th Percentile)",
+        "type": "NUMBER",
+        "isArray": true,
+        "definition": {
+          "defaultValue": 0,
+          "min": 0,
+          "max": 400,
+          "units": "mm",
+          "decimals": 0
+        }
+      }
+    ],
+    "rows": [
+      {
+        "id": "global_mean_sea_level_ssp245",
+        "name": "Global Mean Sea Level Rise (SSP2-4.5)",
+        "hidden": false,
+        "central_projection": [55, 80, 105, 130, 158, 190, 225, 262, 300, 340, 382],
+        "upper_bound": [72, 100, 130, 163, 200, 250, 298, 348, 400, 450, 505],
+        "lower_bound": [42, 60, 80, 100, 125, 150, 175, 203, 232, 260, 290]
+      }
+    ]
+  },
+  "CODE_FILES": {
+    "/asset.tsx": "import React from 'react';\nimport { DigoAsset } from '@digo-org/digo-api';\nimport {\n  ComposedChart,\n  Area,\n  Line,\n  XAxis,\n  YAxis,\n  CartesianGrid,\n  Tooltip,\n  ResponsiveContainer,\n  Legend,\n} from 'recharts';\n\nexport class Asset extends DigoAsset {\n  constructor() {\n    super();\n  }\n\n  render() {\n    // Global parameters\n    const backgroundColor = (this.globalParameters?.['background-color'] as string) || '#0a1628';\n    const lineColor = (this.globalParameters?.['line-color'] as string) || '#60a5fa';\n    const bandColor = (this.globalParameters?.['band-color'] as string) || '#3b82f6';\n    const bandOpacity = (this.globalParameters?.['band-opacity'] as number) ?? 0.25;\n    const showGrid = (this.globalParameters?.['show-grid'] as boolean) ?? true;\n    const showLegend = (this.globalParameters?.['show-legend'] as boolean) ?? true;\n    const chartTitle = (this.globalParameters?.['chart-title'] as string) || 'Sea Level Rise Projections (2025\\u20132075)';\n    const showTitle = (this.globalParameters?.['show-title'] as boolean) ?? true;\n    const lineWidth = (this.globalParameters?.['line-width'] as number) ?? 2.5;\n    const gridColor = (this.globalParameters?.['grid-color'] as string) || '#1e3a5f';\n    const textColor = (this.globalParameters?.['text-color'] as string) || '#94a3b8';\n\n    // Instance parameters (time series arrays from the first row)\n    const centralData = (this.instances?.[0]?.['central-projection'] as number[]) || [];\n    const upperData = (this.instances?.[0]?.['upper-bound'] as number[]) || [];\n    const lowerData = (this.instances?.[0]?.['lower-bound'] as number[]) || [];\n\n    // Build chart data by mapping timeArray to values\n    const chartData = this.timeArray?.map((time: string, index: number) => {\n      const central = centralData[index] ?? 0;\n      const upper = upperData[index] ?? 0;\n      const lower = lowerData[index] ?? 0;\n      return {\n        year: time,\n        central,\n        upper,\n        lower,\n        bandBase: lower,\n        bandRange: Math.max(0, upper - lower),\n      };\n    }) || [];\n\n    // Custom tooltip\n    const CustomTooltip = ({ active, payload, label }: any) => {\n      if (active && payload && payload.length > 0) {\n        const dataPoint = payload[0]?.payload;\n        if (!dataPoint) return null;\n        return (\n          <div style={{\n            backgroundColor: 'rgba(10, 22, 40, 0.95)',\n            border: '1px solid #1e3a5f',\n            borderRadius: '8px',\n            padding: '12px 16px',\n            color: '#e2e8f0',\n            fontSize: '13px',\n            lineHeight: '1.6',\n            boxShadow: '0 4px 12px rgba(0,0,0,0.4)',\n          }}>\n            <div style={{ fontWeight: 600, marginBottom: '6px', color: '#f1f5f9', fontSize: '14px' }}>\n              Year: {label}\n            </div>\n            <div style={{ color: lineColor }}>\n              Central Projection: <strong>{dataPoint.central?.toFixed(1)} mm</strong>\n            </div>\n            <div style={{ color: '#93c5fd' }}>\n              Upper Bound: <strong>{dataPoint.upper?.toFixed(1)} mm</strong>\n            </div>\n            <div style={{ color: '#7dd3fc' }}>\n              Lower Bound: <strong>{dataPoint.lower?.toFixed(1)} mm</strong>\n            </div>\n          </div>\n        );\n      }\n      return null;\n    };\n\n    // Custom legend\n    const renderLegend = () => {\n      return (\n        <div style={{ display: 'flex', justifyContent: 'center', gap: '24px', paddingTop: '8px' }}>\n          <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>\n            <div style={{ width: '20px', height: '3px', backgroundColor: lineColor, borderRadius: '2px' }} />\n            <span style={{ color: textColor, fontSize: '12px' }}>Central Projection</span>\n          </div>\n          <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>\n            <div style={{ width: '20px', height: '12px', backgroundColor: bandColor, opacity: bandOpacity, borderRadius: '2px' }} />\n            <span style={{ color: textColor, fontSize: '12px' }}>Confidence Interval</span>\n          </div>\n        </div>\n      );\n    };\n\n    return (\n      <div style={{\n        width: '100%',\n        height: '100%',\n        backgroundColor,\n        display: 'flex',\n        flexDirection: 'column',\n        padding: '20px',\n        boxSizing: 'border-box',\n        fontFamily: \"'Inter', 'Segoe UI', system-ui, sans-serif\",\n      }}>\n        {showTitle && (\n          <h2 style={{\n            color: '#e2e8f0',\n            textAlign: 'center',\n            margin: '0 0 16px 0',\n            fontSize: '18px',\n            fontWeight: 600,\n            letterSpacing: '-0.01em',\n          }}>\n            {chartTitle}\n          </h2>\n        )}\n        <div style={{ flex: 1, width: '100%', minHeight: 0 }}>\n          <ResponsiveContainer width=\"100%\" height=\"100%\">\n            <ComposedChart data={chartData} margin={{ top: 10, right: 30, left: 20, bottom: 20 }}>\n              {showGrid && (\n                <CartesianGrid strokeDasharray=\"3 3\" stroke={gridColor} strokeOpacity={0.5} />\n              )}\n              <XAxis\n                dataKey=\"year\"\n                stroke={textColor}\n                tick={{ fill: textColor, fontSize: 12 }}\n                label={{ value: 'Year', position: 'insideBottom', offset: -10, fill: textColor, fontSize: 13, fontWeight: 500 }}\n                tickLine={{ stroke: textColor }}\n              />\n              <YAxis\n                stroke={textColor}\n                tick={{ fill: textColor, fontSize: 12 }}\n                label={{ value: 'Sea Level Rise (mm)', angle: -90, position: 'insideLeft', offset: -5, fill: textColor, fontSize: 13, fontWeight: 500, style: { textAnchor: 'middle' } }}\n                tickLine={{ stroke: textColor }}\n              />\n              <Tooltip content={<CustomTooltip />} />\n              {/* Confidence band: invisible base area (lower bound) */}\n              <Area type=\"monotone\" dataKey=\"bandBase\" stackId=\"confidence\" fill=\"transparent\" stroke=\"none\" activeDot={false} isAnimationActive={true} />\n              {/* Confidence band: visible range area (upper - lower) */}\n              <Area type=\"monotone\" dataKey=\"bandRange\" stackId=\"confidence\" fill={bandColor} fillOpacity={bandOpacity} stroke=\"none\" activeDot={false} isAnimationActive={true} animationDuration={1500} />\n              {/* Central projection line */}\n              <Line type=\"monotone\" dataKey=\"central\" stroke={lineColor} strokeWidth={lineWidth} dot={false} activeDot={{ r: 5, fill: lineColor, stroke: '#ffffff', strokeWidth: 2 }} isAnimationActive={true} animationDuration={2000} />\n              {showLegend && <Legend content={renderLegend} />}\n            </ComposedChart>\n          </ResponsiveContainer>\n        </div>\n      </div>\n    );\n  }\n}\n",
+    "/package.json": "{\n  \"name\": \"sea-level-rise-area-chart\",\n  \"version\": \"1.0.0\",\n  \"main\": \"/index.tsx\",\n  \"dependencies\": {\n    \"react\": \"^19.0.0\",\n    \"react-dom\": \"^19.0.0\",\n    \"@digo-org/digo-api\": \"latest\",\n    \"recharts\": \"^2.15.0\"\n  }\n}",
+    "/styles.css": "",
+    "/definition.json": "[\n  { \"id\": \"background-color\", \"name\": \"Background Color\", \"group\": \"Appearance\", \"isGlobal\": true, \"type\": \"COLOR\", \"definition\": { \"default\": \"#0a1628\" } },\n  { \"id\": \"line-color\", \"name\": \"Projection Line Color\", \"group\": \"Appearance\", \"isGlobal\": true, \"type\": \"COLOR\", \"definition\": { \"default\": \"#60a5fa\" } },\n  { \"id\": \"band-color\", \"name\": \"Confidence Band Color\", \"group\": \"Appearance\", \"isGlobal\": true, \"type\": \"COLOR\", \"definition\": { \"default\": \"#3b82f6\" } },\n  { \"id\": \"band-opacity\", \"name\": \"Band Opacity\", \"group\": \"Appearance\", \"isGlobal\": true, \"type\": \"NUMBER\", \"definition\": { \"default\": 0.25, \"min\": 0, \"max\": 1, \"step\": 0.05 } },\n  { \"id\": \"line-width\", \"name\": \"Line Width\", \"group\": \"Appearance\", \"isGlobal\": true, \"type\": \"NUMBER\", \"definition\": { \"default\": 2.5, \"min\": 0.5, \"max\": 6, \"step\": 0.5 } },\n  { \"id\": \"text-color\", \"name\": \"Text Color\", \"group\": \"Appearance\", \"isGlobal\": true, \"type\": \"COLOR\", \"definition\": { \"default\": \"#94a3b8\" } },\n  { \"id\": \"grid-color\", \"name\": \"Grid Color\", \"group\": \"Appearance\", \"isGlobal\": true, \"type\": \"COLOR\", \"definition\": { \"default\": \"#1e3a5f\" } },\n  { \"id\": \"show-grid\", \"name\": \"Show Grid\", \"group\": \"Layout\", \"isGlobal\": true, \"type\": \"BOOLEAN\", \"definition\": { \"default\": true } },\n  { \"id\": \"show-legend\", \"name\": \"Show Legend\", \"group\": \"Layout\", \"isGlobal\": true, \"type\": \"BOOLEAN\", \"definition\": { \"default\": true } },\n  { \"id\": \"show-title\", \"name\": \"Show Title\", \"group\": \"Layout\", \"isGlobal\": true, \"type\": \"BOOLEAN\", \"definition\": { \"default\": true } },\n  { \"id\": \"chart-title\", \"name\": \"Chart Title\", \"group\": \"Layout\", \"isGlobal\": true, \"type\": \"TEXT\", \"definition\": { \"default\": \"Sea Level Rise Projections (2025\\u20132075)\" } },\n  { \"id\": \"central-projection\", \"name\": \"Central Projection (mm)\", \"group\": \"Data\", \"isGlobal\": false, \"type\": \"NUMBER\", \"definition\": { \"default\": 0, \"min\": 0 }, \"isArray\": true },\n  { \"id\": \"upper-bound\", \"name\": \"Upper Bound (mm)\", \"group\": \"Data\", \"isGlobal\": false, \"type\": \"NUMBER\", \"definition\": { \"default\": 0, \"min\": 0 }, \"isArray\": true },\n  { \"id\": \"lower-bound\", \"name\": \"Lower Bound (mm)\", \"group\": \"Data\", \"isGlobal\": false, \"type\": \"NUMBER\", \"definition\": { \"default\": 0, \"min\": 0 }, \"isArray\": true }\n]"
+  },
+  "LINKS": {
+    "central-projection": "central_projection",
+    "upper-bound": "upper_bound",
+    "lower-bound": "lower_bound"
+  }
+}
