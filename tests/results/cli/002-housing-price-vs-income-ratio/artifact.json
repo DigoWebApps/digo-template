@@ -1,0 +1,192 @@
+[
+  {
+    "type": "TEXT",
+    "value": "Updated the connected scatterplot with three fixes: (1) Added a per-city 'line-color' COLOR instance parameter so each city's line/dot color is controllable individually. (2) Added a 'label' TEXT instance parameter linked to city names, so the legend now shows real city names instead of 'City 1, City 2'. (3) Added global 'legend-text-color' and 'legend-text-size' parameters to control the legend text styling. The data table now includes 'city_name' and 'city_color' columns that are linked to the visualization parameters."
+  },
+  {
+    "type": "ARTIFACT",
+    "value": {
+      "DATA_TABLE_DEFINITION": {
+        "timeArray": [
+          "2010",
+          "2012",
+          "2014",
+          "2016",
+          "2018",
+          "2020",
+          "2022",
+          "2024"
+        ],
+        "columns": [
+          {
+            "id": "median_home_price",
+            "name": "Median Home Price",
+            "type": "NUMBER",
+            "isArray": true,
+            "definition": {
+              "defaultValue": 0,
+              "min": 0,
+              "units": "thousands USD",
+              "decimals": 0
+            }
+          },
+          {
+            "id": "median_income",
+            "name": "Median Household Income",
+            "type": "NUMBER",
+            "isArray": true,
+            "definition": {
+              "defaultValue": 0,
+              "min": 0,
+              "units": "thousands USD",
+              "decimals": 0
+            }
+          },
+          {
+            "id": "price_to_income_ratio",
+            "name": "Price-to-Income Ratio",
+            "type": "NUMBER",
+            "isArray": true,
+            "definition": {
+              "defaultValue": 0,
+              "min": 0,
+              "units": "",
+              "decimals": 1
+            }
+          },
+          {
+            "id": "city_name",
+            "name": "City Name",
+            "type": "TEXT",
+            "definition": {
+              "defaultValue": ""
+            }
+          },
+          {
+            "id": "city_color",
+            "name": "City Color",
+            "type": "COLOR",
+            "definition": {
+              "defaultValue": "#4e79a7"
+            }
+          }
+        ],
+        "rows": [
+          {
+            "id": "san_francisco",
+            "name": "San Francisco",
+            "hidden": false,
+            "median_home_price": [625, 590, 780, 880, 960, 1100, 1500, 1300],
+            "median_income": [82, 86, 93, 103, 112, 120, 130, 138],
+            "price_to_income_ratio": [7.6, 6.9, 8.4, 8.5, 8.6, 9.2, 11.5, 9.4],
+            "city_name": "San Francisco",
+            "city_color": "#e15759"
+          },
+          {
+            "id": "los_angeles",
+            "name": "Los Angeles",
+            "hidden": false,
+            "median_home_price": [360, 330, 430, 500, 585, 640, 850, 930],
+            "median_income": [56, 57, 60, 65, 71, 76, 82, 88],
+            "price_to_income_ratio": [6.4, 5.8, 7.2, 7.7, 8.2, 8.4, 10.4, 10.6],
+            "city_name": "Los Angeles",
+            "city_color": "#f28e2b"
+          },
+          {
+            "id": "new_york",
+            "name": "New York",
+            "hidden": false,
+            "median_home_price": [380, 350, 390, 410, 440, 480, 600, 770],
+            "median_income": [63, 65, 68, 72, 78, 84, 90, 96],
+            "price_to_income_ratio": [6.0, 5.4, 5.7, 5.7, 5.6, 5.7, 6.7, 8.0],
+            "city_name": "New York",
+            "city_color": "#4e79a7"
+          },
+          {
+            "id": "denver",
+            "name": "Denver",
+            "hidden": false,
+            "median_home_price": [230, 235, 290, 360, 410, 460, 600, 565],
+            "median_income": [63, 65, 69, 75, 80, 85, 92, 98],
+            "price_to_income_ratio": [3.7, 3.6, 4.2, 4.8, 5.1, 5.4, 6.5, 5.8],
+            "city_name": "Denver",
+            "city_color": "#76b7b2"
+          },
+          {
+            "id": "miami",
+            "name": "Miami",
+            "hidden": false,
+            "median_home_price": [185, 160, 210, 255, 300, 340, 500, 575],
+            "median_income": [44, 45, 47, 50, 54, 58, 63, 68],
+            "price_to_income_ratio": [4.2, 3.6, 4.5, 5.1, 5.6, 5.9, 7.9, 8.5],
+            "city_name": "Miami",
+            "city_color": "#59a14f"
+          },
+          {
+            "id": "austin",
+            "name": "Austin",
+            "hidden": false,
+            "median_home_price": [195, 200, 235, 280, 310, 340, 540, 550],
+            "median_income": [58, 60, 64, 70, 76, 81, 88, 95],
+            "price_to_income_ratio": [3.4, 3.3, 3.7, 4.0, 4.1, 4.2, 6.1, 5.8],
+            "city_name": "Austin",
+            "city_color": "#edc948"
+          },
+          {
+            "id": "chicago",
+            "name": "Chicago",
+            "hidden": false,
+            "median_home_price": [210, 170, 195, 215, 235, 260, 300, 330],
+            "median_income": [62, 63, 65, 68, 73, 78, 84, 90],
+            "price_to_income_ratio": [3.4, 2.7, 3.0, 3.2, 3.2, 3.3, 3.6, 3.7],
+            "city_name": "Chicago",
+            "city_color": "#b07aa1"
+          },
+          {
+            "id": "phoenix",
+            "name": "Phoenix",
+            "hidden": false,
+            "median_home_price": [145, 140, 195, 235, 275, 310, 435, 420],
+            "median_income": [53, 54, 56, 60, 65, 70, 76, 82],
+            "price_to_income_ratio": [2.7, 2.6, 3.5, 3.9, 4.2, 4.4, 5.7, 5.1],
+            "city_name": "Phoenix",
+            "city_color": "#ff9da7"
+          },
+          {
+            "id": "atlanta",
+            "name": "Atlanta",
+            "hidden": false,
+            "median_home_price": [155, 130, 170, 205, 245, 275, 360, 340],
+            "median_income": [57, 58, 61, 65, 70, 75, 82, 88],
+            "price_to_income_ratio": [2.7, 2.2, 2.8, 3.2, 3.5, 3.7, 4.4, 3.9],
+            "city_name": "Atlanta",
+            "city_color": "#9c755f"
+          },
+          {
+            "id": "seattle",
+            "name": "Seattle",
+            "hidden": false,
+            "median_home_price": [340, 310, 380, 460, 530, 570, 700, 680],
+            "median_income": [72, 75, 80, 88, 95, 103, 112, 120],
+            "price_to_income_ratio": [4.7, 4.1, 4.8, 5.2, 5.6, 5.5, 6.3, 5.7],
+            "city_name": "Seattle",
+            "city_color": "#bab0ac"
+          }
+        ]
+      },
+      "CODE_FILES": {
+        "/asset.tsx": "import React, { useRef, useEffect, useState, useCallback } from 'react';\nimport { DigoAsset } from '@digo-org/digo-api';\nimport * as d3 from 'd3';\n\ninterface CityDataPoint {\n  year: string;\n  price: number;\n  ratio: number;\n  income: number;\n}\n\ninterface TooltipState {\n  visible: boolean;\n  x: number;\n  y: number;\n  city: string;\n  year: string;\n  price: number;\n  ratio: number;\n  income: number;\n  color: string;\n}\n\nfunction ConnectedScatterplot({\n  instances,\n  globalParameters,\n  timeArray,\n}: {\n  instances: any[];\n  globalParameters: Record<string, any>;\n  timeArray: string[];\n}) {\n  const svgRef = useRef<SVGSVGElement>(null);\n  const containerRef = useRef<HTMLDivElement>(null);\n  const [dimensions, setDimensions] = useState({ width: 800, height: 500 });\n  const [tooltip, setTooltip] = useState<TooltipState>({\n    visible: false,\n    x: 0,\n    y: 0,\n    city: '',\n    year: '',\n    price: 0,\n    ratio: 0,\n    income: 0,\n    color: '',\n  });\n\n  const backgroundColor = (globalParameters['background-color'] as string) || '#f8f9fa';\n  const dotRadius = (globalParameters['dot-radius'] as number) || 5;\n  const lineWidth = (globalParameters['line-width'] as number) || 2;\n  const showLabels = globalParameters['show-labels'] !== undefined ? (globalParameters['show-labels'] as boolean) : true;\n  const title = (globalParameters['title'] as string) || 'Housing Prices vs Income Ratio';\n  const legendTextColor = (globalParameters['legend-text-color'] as string) || '#444';\n  const legendTextSize = (globalParameters['legend-text-size'] as number) || 11;\n\n  const margin = { top: 60, right: 160, bottom: 60, left: 70 };\n\n  useEffect(() => {\n    const handleResize = () => {\n      if (containerRef.current) {\n        const rect = containerRef.current.getBoundingClientRect();\n        setDimensions({ width: rect.width, height: rect.height });\n      }\n    };\n    handleResize();\n    const observer = new ResizeObserver(handleResize);\n    if (containerRef.current) observer.observe(containerRef.current);\n    return () => observer.disconnect();\n  }, []);\n\n  const drawChart = useCallback(() => {\n    if (!svgRef.current || !instances || instances.length === 0) return;\n\n    const svg = d3.select(svgRef.current);\n    svg.selectAll('*').remove();\n\n    const width = dimensions.width - margin.left - margin.right;\n    const height = dimensions.height - margin.top - margin.bottom;\n\n    if (width <= 0 || height <= 0) return;\n\n    const g = svg\n      .append('g')\n      .attr('transform', `translate(${margin.left},${margin.top})`);\n\n    const fallbackColors = d3.scaleOrdinal(d3.schemeTableau10);\n\n    const citiesData: { name: string; color: string; points: CityDataPoint[] }[] = [];\n\n    let allPrices: number[] = [];\n    let allRatios: number[] = [];\n\n    instances.forEach((instance: any, idx: number) => {\n      const cityName = (instance['label'] as string) || `City ${idx + 1}`;\n      const prices = (instance['median_home_price'] as number[]) || [];\n      const ratios = (instance['price_to_income_ratio'] as number[]) || [];\n      const incomes = (instance['median_income'] as number[]) || [];\n      const color = (instance['line-color'] as string) || fallbackColors(String(idx));\n\n      const points: CityDataPoint[] = [];\n      const len = Math.min(prices.length, ratios.length, timeArray.length || Infinity);\n      for (let i = 0; i < len; i++) {\n        if (prices[i] != null && ratios[i] != null) {\n          points.push({\n            year: timeArray[i] || String(i),\n            price: prices[i],\n            ratio: ratios[i],\n            income: incomes[i] || 0,\n          });\n          allPrices.push(prices[i]);\n          allRatios.push(ratios[i]);\n        }\n      }\n\n      if (points.length > 0) {\n        citiesData.push({ name: cityName, color, points });\n      }\n    });\n\n    if (citiesData.length === 0) return;\n\n    const xExtent = d3.extent(allPrices) as [number, number];\n    const yExtent = d3.extent(allRatios) as [number, number];\n\n    const xPadding = (xExtent[1] - xExtent[0]) * 0.08 || 10;\n    const yPadding = (yExtent[1] - yExtent[0]) * 0.08 || 0.5;\n\n    const xScale = d3\n      .scaleLinear()\n      .domain([xExtent[0] - xPadding, xExtent[1] + xPadding])\n      .range([0, width]);\n\n    const yScale = d3\n      .scaleLinear()\n      .domain([yExtent[0] - yPadding, yExtent[1] + yPadding])\n      .range([height, 0]);\n\n    // Grid lines\n    g.append('g')\n      .attr('class', 'grid-x')\n      .attr('transform', `translate(0,${height})`)\n      .call(\n        d3.axisBottom(xScale).tickSize(-height).tickFormat(() => '')\n      )\n      .selectAll('line')\n      .attr('stroke', '#e0e0e0')\n      .attr('stroke-dasharray', '3,3');\n\n    g.append('g')\n      .attr('class', 'grid-y')\n      .call(\n        d3.axisLeft(yScale).tickSize(-width).tickFormat(() => '')\n      )\n      .selectAll('line')\n      .attr('stroke', '#e0e0e0')\n      .attr('stroke-dasharray', '3,3');\n\n    g.selectAll('.grid-x .domain, .grid-y .domain').remove();\n\n    // X axis\n    g.append('g')\n      .attr('transform', `translate(0,${height})`)\n      .call(d3.axisBottom(xScale).ticks(8).tickFormat(d => `$${d3.format(',.0f')(d as number)}K`))\n      .selectAll('text')\n      .attr('fill', '#555')\n      .style('font-size', '11px');\n\n    g.append('text')\n      .attr('x', width / 2)\n      .attr('y', height + 45)\n      .attr('text-anchor', 'middle')\n      .attr('fill', '#444')\n      .style('font-size', '13px')\n      .style('font-weight', '500')\n      .text('Median Home Price (thousands USD)');\n\n    // Y axis\n    g.append('g')\n      .call(d3.axisLeft(yScale).ticks(6).tickFormat(d => `${d3.format('.1f')(d as number)}x`))\n      .selectAll('text')\n      .attr('fill', '#555')\n      .style('font-size', '11px');\n\n    g.append('text')\n      .attr('transform', 'rotate(-90)')\n      .attr('x', -height / 2)\n      .attr('y', -50)\n      .attr('text-anchor', 'middle')\n      .attr('fill', '#444')\n      .style('font-size', '13px')\n      .style('font-weight', '500')\n      .text('Price-to-Income Ratio');\n\n    // Title\n    svg\n      .append('text')\n      .attr('x', dimensions.width / 2)\n      .attr('y', 30)\n      .attr('text-anchor', 'middle')\n      .attr('fill', '#222')\n      .style('font-size', '18px')\n      .style('font-weight', '700')\n      .text(title);\n\n    // Draw paths and dots per city\n    const line = d3\n      .line<CityDataPoint>()\n      .x(d => xScale(d.price))\n      .y(d => yScale(d.ratio))\n      .curve(d3.curveMonotoneX);\n\n    citiesData.forEach((city) => {\n      // Draw the path\n      const path = g\n        .append('path')\n        .datum(city.points)\n        .attr('fill', 'none')\n        .attr('stroke', city.color)\n        .attr('stroke-width', lineWidth)\n        .attr('stroke-opacity', 0.7)\n        .attr('d', line);\n\n      // Animate path drawing\n      const totalLength = (path.node() as SVGPathElement)?.getTotalLength() || 0;\n      path\n        .attr('stroke-dasharray', `${totalLength} ${totalLength}`)\n        .attr('stroke-dashoffset', totalLength)\n        .transition()\n        .duration(2000)\n        .ease(d3.easeCubicInOut)\n        .attr('stroke-dashoffset', 0);\n\n      // Draw dots\n      g.selectAll(`.dot-${city.name.replace(/\\s/g, '-')}`)\n        .data(city.points)\n        .enter()\n        .append('circle')\n        .attr('cx', d => xScale(d.price))\n        .attr('cy', d => yScale(d.ratio))\n        .attr('r', 0)\n        .attr('fill', city.color)\n        .attr('stroke', '#fff')\n        .attr('stroke-width', 1.5)\n        .style('cursor', 'pointer')\n        .on('mouseenter', function (event: MouseEvent, d: CityDataPoint) {\n          d3.select(this)\n            .transition()\n            .duration(150)\n            .attr('r', dotRadius * 1.6);\n          const svgRect = svgRef.current?.getBoundingClientRect();\n          if (svgRect) {\n            setTooltip({\n              visible: true,\n              x: event.clientX - svgRect.left,\n              y: event.clientY - svgRect.top - 10,\n              city: city.name,\n              year: d.year,\n              price: d.price,\n              ratio: d.ratio,\n              income: d.income,\n              color: city.color,\n            });\n          }\n        })\n        .on('mouseleave', function () {\n          d3.select(this)\n            .transition()\n            .duration(150)\n            .attr('r', dotRadius);\n          setTooltip(prev => ({ ...prev, visible: false }));\n        })\n        .transition()\n        .delay((_, i) => (i / city.points.length) * 2000)\n        .duration(300)\n        .attr('r', dotRadius);\n\n      // Year labels on first and last points\n      if (showLabels && city.points.length > 0) {\n        const firstPt = city.points[0];\n        const lastPt = city.points[city.points.length - 1];\n\n        const addLabel = (pt: CityDataPoint, anchor: string, dx: number) => {\n          g.append('text')\n            .attr('x', xScale(pt.price))\n            .attr('y', yScale(pt.ratio))\n            .attr('dx', dx)\n            .attr('dy', -dotRadius - 4)\n            .attr('text-anchor', anchor)\n            .attr('fill', city.color)\n            .style('font-size', '10px')\n            .style('font-weight', '600')\n            .style('opacity', 0)\n            .text(pt.year)\n            .transition()\n            .delay(2000)\n            .duration(500)\n            .style('opacity', 1);\n        };\n\n        addLabel(firstPt, 'end', -4);\n        if (city.points.length > 1) {\n          addLabel(lastPt, 'start', 4);\n        }\n      }\n    });\n\n    // Legend\n    const legend = svg\n      .append('g')\n      .attr('transform', `translate(${dimensions.width - margin.right + 20}, ${margin.top})`);\n\n    legend\n      .append('text')\n      .attr('x', 0)\n      .attr('y', 0)\n      .attr('fill', legendTextColor)\n      .style('font-size', `${legendTextSize + 1}px`)\n      .style('font-weight', '700')\n      .text('Cities');\n\n    citiesData.forEach((city, i) => {\n      const row = legend.append('g').attr('transform', `translate(0, ${20 + i * 24})`);\n\n      row\n        .append('line')\n        .attr('x1', 0)\n        .attr('y1', 0)\n        .attr('x2', 20)\n        .attr('y2', 0)\n        .attr('stroke', city.color)\n        .attr('stroke-width', lineWidth);\n\n      row\n        .append('circle')\n        .attr('cx', 10)\n        .attr('cy', 0)\n        .attr('r', dotRadius * 0.7)\n        .attr('fill', city.color)\n        .attr('stroke', '#fff')\n        .attr('stroke-width', 1);\n\n      row\n        .append('text')\n        .attr('x', 28)\n        .attr('y', 4)\n        .attr('fill', legendTextColor)\n        .style('font-size', `${legendTextSize}px`)\n        .text(city.name);\n    });\n  }, [instances, globalParameters, timeArray, dimensions, dotRadius, lineWidth, showLabels, title, legendTextColor, legendTextSize]);\n\n  useEffect(() => {\n    drawChart();\n  }, [drawChart]);\n\n  return (\n    <div\n      ref={containerRef}\n      style={{\n        width: '100%',\n        height: '100%',\n        backgroundColor,\n        position: 'relative',\n        fontFamily: \"'Inter', 'Segoe UI', system-ui, -apple-system, sans-serif\",\n        overflow: 'hidden',\n      }}\n    >\n      <svg\n        ref={svgRef}\n        width={dimensions.width}\n        height={dimensions.height}\n        style={{ display: 'block' }}\n      />\n      {tooltip.visible && (\n        <div\n          style={{\n            position: 'absolute',\n            left: tooltip.x,\n            top: tooltip.y,\n            transform: 'translate(-50%, -100%)',\n            background: '#fff',\n            border: `2px solid ${tooltip.color}`,\n            borderRadius: '8px',\n            padding: '10px 14px',\n            boxShadow: '0 4px 16px rgba(0,0,0,0.12)',\n            pointerEvents: 'none',\n            zIndex: 10,\n            fontSize: '12px',\n            lineHeight: '1.6',\n            whiteSpace: 'nowrap',\n          }}\n        >\n          <div style={{ fontWeight: 700, color: tooltip.color, marginBottom: 2 }}>\n            {tooltip.city}\n          </div>\n          <div style={{ color: '#555' }}>\n            <strong>Year:</strong> {tooltip.year}\n          </div>\n          <div style={{ color: '#555' }}>\n            <strong>Price:</strong> ${d3.format(',.0f')(tooltip.price)}K\n          </div>\n          <div style={{ color: '#555' }}>\n            <strong>Ratio:</strong> {d3.format('.2f')(tooltip.ratio)}x\n          </div>\n          {tooltip.income > 0 && (\n            <div style={{ color: '#555' }}>\n              <strong>Income:</strong> ${d3.format(',.0f')(tooltip.income)}K\n            </div>\n          )}\n        </div>\n      )}\n    </div>\n  );\n}\n\nexport class Asset extends DigoAsset {\n  constructor() {\n    super();\n  }\n\n  render() {\n    return (\n      <ConnectedScatterplot\n        instances={this.instances || []}\n        globalParameters={this.globalParameters || {}}\n        timeArray={this.timeArray || []}\n      />\n    );\n  }\n}\n",
+        "/package.json": "{\n  \"name\": \"connected-scatterplot\",\n  \"version\": \"1.0.0\",\n  \"main\": \"/index.tsx\",\n  \"dependencies\": {\n    \"react\": \"^19.0.0\",\n    \"react-dom\": \"^19.0.0\",\n    \"@digo-org/digo-api\": \"latest\",\n    \"d3\": \"^7.9.0\"\n  }\n}",
+        "/styles.css": "",
+        "/definition.json": "[\n  {\n    \"id\": \"background-color\",\n    \"name\": \"Background Color\",\n    \"group\": \"Appearance\",\n    \"isGlobal\": true,\n    \"type\": \"COLOR\",\n    \"definition\": {\n      \"defaultValue\": \"#f8f9fa\"\n    }\n  },\n  {\n    \"id\": \"dot-radius\",\n    \"name\": \"Dot Radius\",\n    \"group\": \"Appearance\",\n    \"isGlobal\": true,\n    \"type\": \"NUMBER\",\n    \"definition\": {\n      \"defaultValue\": 5,\n      \"min\": 2,\n      \"max\": 12,\n      \"step\": 0.5\n    }\n  },\n  {\n    \"id\": \"line-width\",\n    \"name\": \"Line Width\",\n    \"group\": \"Appearance\",\n    \"isGlobal\": true,\n    \"type\": \"NUMBER\",\n    \"definition\": {\n      \"defaultValue\": 2,\n      \"min\": 1,\n      \"max\": 5,\n      \"step\": 0.5\n    }\n  },\n  {\n    \"id\": \"show-labels\",\n    \"name\": \"Show Year Labels\",\n    \"group\": \"Appearance\",\n    \"isGlobal\": true,\n    \"type\": \"BOOLEAN\",\n    \"definition\": {\n      \"defaultValue\": true\n    }\n  },\n  {\n    \"id\": \"title\",\n    \"name\": \"Chart Title\",\n    \"group\": \"Text\",\n    \"isGlobal\": true,\n    \"type\": \"TEXT\",\n    \"definition\": {\n      \"defaultValue\": \"Housing Prices vs Income Ratio\",\n      \"placeholder\": \"Enter chart title\"\n    }\n  },\n  {\n    \"id\": \"legend-text-color\",\n    \"name\": \"Legend Text Color\",\n    \"group\": \"Text\",\n    \"isGlobal\": true,\n    \"type\": \"COLOR\",\n    \"definition\": {\n      \"defaultValue\": \"#444444\"\n    }\n  },\n  {\n    \"id\": \"legend-text-size\",\n    \"name\": \"Legend Text Size\",\n    \"group\": \"Text\",\n    \"isGlobal\": true,\n    \"type\": \"NUMBER\",\n    \"definition\": {\n      \"defaultValue\": 11,\n      \"min\": 8,\n      \"max\": 24,\n      \"step\": 1\n    }\n  },\n  {\n    \"id\": \"label\",\n    \"name\": \"City Label\",\n    \"group\": \"Data\",\n    \"isGlobal\": false,\n    \"type\": \"TEXT\",\n    \"definition\": {\n      \"defaultValue\": \"\"\n    }\n  },\n  {\n    \"id\": \"line-color\",\n    \"name\": \"Line Color\",\n    \"group\": \"Appearance\",\n    \"isGlobal\": false,\n    \"type\": \"COLOR\",\n    \"definition\": {\n      \"defaultValue\": \"#4e79a7\"\n    }\n  },\n  {\n    \"id\": \"median_home_price\",\n    \"name\": \"Median Home Price\",\n    \"group\": \"Data\",\n    \"isGlobal\": false,\n    \"type\": \"NUMBER\",\n    \"definition\": {\n      \"defaultValue\": 0,\n      \"min\": 0\n    },\n    \"isArray\": true\n  },\n  {\n    \"id\": \"median_income\",\n    \"name\": \"Median Income\",\n    \"group\": \"Data\",\n    \"isGlobal\": false,\n    \"type\": \"NUMBER\",\n    \"definition\": {\n      \"defaultValue\": 0,\n      \"min\": 0\n    },\n    \"isArray\": true\n  },\n  {\n    \"id\": \"price_to_income_ratio\",\n    \"name\": \"Price to Income Ratio\",\n    \"group\": \"Data\",\n    \"isGlobal\": false,\n    \"type\": \"NUMBER\",\n    \"definition\": {\n      \"defaultValue\": 0,\n      \"min\": 0\n    },\n    \"isArray\": true\n  }\n]"
+      },
+      "LINKS": {
+        "median_home_price": "median_home_price",
+        "median_income": "median_income",
+        "price_to_income_ratio": "price_to_income_ratio",
+        "label": "city_name",
+        "line-color": "city_color"
+      }
+    }
+  }
+]
