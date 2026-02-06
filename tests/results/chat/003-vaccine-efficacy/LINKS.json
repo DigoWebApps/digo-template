@@ -1,0 +1,10 @@
+{
+  "LINKS": {
+    "vaccine-name": "vaccine_name",
+    "disease-targeted": "disease_targeted",
+    "efficacy-rate": "efficacy_rate",
+    "doses-required": "doses_required",
+    "year-approved": "year_approved",
+    "vaccine-type": "vaccine_type"
+  }
+}

@@ -1,0 +1,218 @@
+{
+  "DATA_TABLE_DEFINITION": {
+    "timeArray": [],
+    "columns": [
+      {
+        "id": "vaccine_name",
+        "name": "Vaccine Name",
+        "type": "TEXT",
+        "definition": {
+          "defaultValue": "",
+          "placeholder": "Vaccine brand name"
+        }
+      },
+      {
+        "id": "disease_targeted",
+        "name": "Disease Targeted",
+        "type": "TEXT",
+        "definition": {
+          "defaultValue": "",
+          "placeholder": "Target disease"
+        }
+      },
+      {
+        "id": "efficacy_rate",
+        "name": "Efficacy Rate (%)",
+        "type": "NUMBER",
+        "definition": {
+          "defaultValue": 0,
+          "min": 0,
+          "max": 100,
+          "decimals": 1,
+          "units": "%",
+          "step": 0.1
+        }
+      },
+      {
+        "id": "doses_required",
+        "name": "Doses Required",
+        "type": "NUMBER",
+        "definition": {
+          "defaultValue": 1,
+          "min": 1,
+          "max": 5,
+          "decimals": 0,
+          "units": "doses",
+          "step": 1
+        }
+      },
+      {
+        "id": "year_approved",
+        "name": "Year Approved",
+        "type": "NUMBER",
+        "definition": {
+          "defaultValue": 2000,
+          "min": 1900,
+          "max": 2030,
+          "decimals": 0,
+          "units": "year",
+          "step": 1
+        }
+      },
+      {
+        "id": "vaccine_type",
+        "name": "Vaccine Type / Technology",
+        "type": "TEXT",
+        "definition": {
+          "defaultValue": "",
+          "placeholder": "e.g., mRNA, viral vector, inactivated"
+        }
+      }
+    ],
+    "rows": [
+      {
+        "id": "pfizer_biontech",
+        "name": "Pfizer-BioNTech (Comirnaty)",
+        "hidden": false,
+        "vaccine_name": "Pfizer-BioNTech (Comirnaty)",
+        "disease_targeted": "COVID-19",
+        "efficacy_rate": 95.0,
+        "doses_required": 2,
+        "year_approved": 2020,
+        "vaccine_type": "mRNA"
+      },
+      {
+        "id": "moderna",
+        "name": "Moderna (Spikevax)",
+        "hidden": false,
+        "vaccine_name": "Moderna (Spikevax)",
+        "disease_targeted": "COVID-19",
+        "efficacy_rate": 94.1,
+        "doses_required": 2,
+        "year_approved": 2020,
+        "vaccine_type": "mRNA"
+      },
+      {
+        "id": "johnson_johnson",
+        "name": "Johnson & Johnson (Janssen)",
+        "hidden": false,
+        "vaccine_name": "Johnson & Johnson (Janssen)",
+        "disease_targeted": "COVID-19",
+        "efficacy_rate": 66.0,
+        "doses_required": 1,
+        "year_approved": 2021,
+        "vaccine_type": "Viral vector (adenovirus)"
+      },
+      {
+        "id": "astrazeneca",
+        "name": "AstraZeneca (Vaxzevria)",
+        "hidden": false,
+        "vaccine_name": "AstraZeneca (Vaxzevria)",
+        "disease_targeted": "COVID-19",
+        "efficacy_rate": 76.0,
+        "doses_required": 2,
+        "year_approved": 2021,
+        "vaccine_type": "Viral vector (adenovirus)"
+      },
+      {
+        "id": "mmr",
+        "name": "MMR II (Merck)",
+        "hidden": false,
+        "vaccine_name": "MMR II (Merck)",
+        "disease_targeted": "Measles, Mumps, Rubella",
+        "efficacy_rate": 97.0,
+        "doses_required": 2,
+        "year_approved": 1971,
+        "vaccine_type": "Live attenuated"
+      },
+      {
+        "id": "influenza",
+        "name": "Seasonal Influenza (Fluzone)",
+        "hidden": false,
+        "vaccine_name": "Seasonal Influenza (Fluzone)",
+        "disease_targeted": "Influenza (Flu)",
+        "efficacy_rate": 50.0,
+        "doses_required": 1,
+        "year_approved": 1945,
+        "vaccine_type": "Inactivated / Recombinant"
+      },
+      {
+        "id": "hpv_gardasil",
+        "name": "Gardasil 9 (Merck)",
+        "hidden": false,
+        "vaccine_name": "Gardasil 9 (Merck)",
+        "disease_targeted": "Human Papillomavirus (HPV)",
+        "efficacy_rate": 97.0,
+        "doses_required": 2,
+        "year_approved": 2006,
+        "vaccine_type": "Recombinant (protein subunit)"
+      },
+      {
+        "id": "polio_ipv",
+        "name": "IPV (IPOL, Sanofi)",
+        "hidden": false,
+        "vaccine_name": "IPV (IPOL, Sanofi)",
+        "disease_targeted": "Polio",
+        "efficacy_rate": 99.0,
+        "doses_required": 4,
+        "year_approved": 1955,
+        "vaccine_type": "Inactivated"
+      },
+      {
+        "id": "hepatitis_b",
+        "name": "Hepatitis B (Recombivax HB)",
+        "hidden": false,
+        "vaccine_name": "Hepatitis B (Recombivax HB)",
+        "disease_targeted": "Hepatitis B",
+        "efficacy_rate": 95.0,
+        "doses_required": 3,
+        "year_approved": 1982,
+        "vaccine_type": "Recombinant (protein subunit)"
+      },
+      {
+        "id": "dtap_tetanus",
+        "name": "DTaP (Infanrix / Daptacel)",
+        "hidden": false,
+        "vaccine_name": "DTaP (Infanrix / Daptacel)",
+        "disease_targeted": "Diphtheria, Tetanus, Pertussis",
+        "efficacy_rate": 98.0,
+        "doses_required": 5,
+        "year_approved": 1991,
+        "vaccine_type": "Inactivated (toxoid + acellular)"
+      },
+      {
+        "id": "varicella",
+        "name": "Varivax (Merck)",
+        "hidden": false,
+        "vaccine_name": "Varivax (Merck)",
+        "disease_targeted": "Chickenpox (Varicella)",
+        "efficacy_rate": 90.0,
+        "doses_required": 2,
+        "year_approved": 1995,
+        "vaccine_type": "Live attenuated"
+      },
+      {
+        "id": "shingrix",
+        "name": "Shingrix (GSK)",
+        "hidden": false,
+        "vaccine_name": "Shingrix (GSK)",
+        "disease_targeted": "Shingles (Herpes Zoster)",
+        "efficacy_rate": 91.0,
+        "doses_required": 2,
+        "year_approved": 2017,
+        "vaccine_type": "Recombinant (adjuvanted protein subunit)"
+      },
+      {
+        "id": "prevnar_13",
+        "name": "Prevnar 13 (Pfizer)",
+        "hidden": false,
+        "vaccine_name": "Prevnar 13 (Pfizer)",
+        "disease_targeted": "Pneumococcal Disease",
+        "efficacy_rate": 75.0,
+        "doses_required": 4,
+        "year_approved": 2010,
+        "vaccine_type": "Conjugate"
+      }
+    ]
+  }
+}
