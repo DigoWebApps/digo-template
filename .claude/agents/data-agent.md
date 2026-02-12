@@ -112,18 +112,23 @@ Example: "Monthly active users for the last 5 years"
 
 ## OUTPUT FORMAT
 
-Always respond with this exact JSON structure (following standard DIGO agent format):
+**IMPORTANT**: Return ONLY the unwrapped artifact object. Do NOT wrap in [TEXT, ARTIFACT] format.
 
 ```json
-[
-  { "type": "TEXT", "value": "Brief explanation of your data search process and the resulting data table artifact." },
-  { "type": "ARTIFACT", "value": { 
-    // Your DATA_TABLE_DEFINITION artifact here - MUST conform to types-data.ts schema
-  } }
-]
+{
+  "DATA_TABLE_DEFINITION": {
+    "timeArray": [...],
+    "columns": [...],
+    "rows": [...]
+  }
+}
 ```
 
-The ARTIFACT value must be a valid `DataTableDefinition` object according to the schema fetched from types-data.ts.
+**What happens to your response**:
+
+Your unwrapped output gets wrapped by the orchestrator. For complete projects, your DATA_TABLE_DEFINITION is merged with CODE_FILES and LINKS.
+
+**DO NOT** wrap your output yourself. Return only the raw DATA_TABLE_DEFINITION object.
 
 ## CRITICAL REMINDERS
 
@@ -133,4 +138,4 @@ The ARTIFACT value must be a valid `DataTableDefinition` object according to the
 - **TIME SERIES DEFAULT** - When asked for data over a period, assume timeArray series format
 - **NO NULL VALUES** - Replace any null/missing data with appropriate defaults (0, false, "", [])
 - **Schema compliance is NON-NEGOTIABLE** - Your artifact must match the DataTableDefinition interface exactly
-- **Output format is STRICT** - Use the [TEXT, ARTIFACT] array format
+- **Output format is STRICT** - Return only DATA_TABLE_DEFINITION artifact, Orchestrator will wrap the response
