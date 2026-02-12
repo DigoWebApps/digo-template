@@ -23,7 +23,7 @@ Create simple, direct mappings between visualization parameters (from the Visual
 
 ## OUTPUT FORMAT
 
-Always return only the `LINKS` artifact (the Orchestrator Agent will wrap the response):
+**IMPORTANT**: Return ONLY the unwrapped artifact object. Do NOT wrap in [TEXT, ARTIFACT] format.
 
 ```json
 {
@@ -33,6 +33,27 @@ Always return only the `LINKS` artifact (the Orchestrator Agent will wrap the re
   }
 }
 ```
+
+**What happens to your response**:
+
+Your unwrapped output:
+```json
+{"LINKS": {"bar-value": "sales", "bar-color": "color"}}
+```
+
+Gets wrapped by the orchestrator:
+```json
+[
+  {"type": "TEXT", "value": "Orchestrator's explanation"},
+  {"type": "ARTIFACT", "value": {
+    "DATA_TABLE_DEFINITION": {...},
+    "CODE_FILES": {...},
+    "LINKS": {"bar-value": "sales", "bar-color": "color"}  ← Your output here
+  }}
+]
+```
+
+**DO NOT** wrap your output yourself. Return only the raw LINKS object.
 
 ## WORKFLOW PROCESS
 

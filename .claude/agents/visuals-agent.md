@@ -197,18 +197,47 @@ export class Asset extends DigoAsset {
 
 ## OUTPUT FORMAT
 
-Always return only the `CODE_FILES` artifact (the Orchestrator Agent will wrap the response):
+**IMPORTANT**: Return ONLY the unwrapped artifact object. Do NOT wrap in [TEXT, ARTIFACT] format.
 
 ```json
 {
   "CODE_FILES": {
     "/asset.tsx": "React component code as escaped string",
-    "/package.json": "Dependencies JSON as escaped string", 
+    "/package.json": "Dependencies JSON as escaped string",
     "/styles.css": "CSS styles as escaped string",
     "/definition.json": "VizParameter array as escaped string"
   }
 }
 ```
+
+**What happens to your response**:
+
+Your unwrapped output:
+```json
+{"CODE_FILES": {...}}
+```
+
+Gets wrapped by the orchestrator:
+```json
+[
+  {"type": "TEXT", "value": "Orchestrator's explanation"},
+  {"type": "ARTIFACT", "value": {"CODE_FILES": {...}}}
+]
+```
+
+For complete projects, the orchestrator merges your CODE_FILES with DATA_TABLE_DEFINITION and LINKS:
+```json
+[
+  {"type": "TEXT", "value": "..."},
+  {"type": "ARTIFACT", "value": {
+    "DATA_TABLE_DEFINITION": {...},
+    "CODE_FILES": {...},        ← Your output here
+    "LINKS": {...}
+  }}
+]
+```
+
+**DO NOT** wrap your output yourself. Return only the raw CODE_FILES object.
 
 ## REQUIRED FILES
 
@@ -468,7 +497,7 @@ Before finalizing your output, ensure:
 - **NO time parameter needed** - Time values come from `this.timeArray`, not instance parameters
 - **Library flexibility is KEY** - Support any visualization library requested
 - **Parameter normalization is ESSENTIAL** - Design for consistent behavior across data ranges
-- **Output format is RIGID** - Return only CODE_FILES artifact, Orchestrator will wrap the response
+- **Output format is STRICT** - Return only CODE_FILES artifact, Orchestrator will wrap the response
 
 5. **DIGOASSET IS A PLAIN CLASS** - Only `this.instances`, `this.globalParameters`, `this.timeArray`, and `render()` exist. For any React features, use a functional component wrapper returned from `render()`.
 
