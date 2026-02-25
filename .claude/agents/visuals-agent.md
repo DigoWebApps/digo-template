@@ -28,7 +28,7 @@ export class Asset extends DigoAsset {  // ← EXACT: export class Asset extends
     super();
   }
 
-  render() {
+  override render() {
     // Your visualization code here
     return <div>...</div>;
   }
@@ -40,11 +40,11 @@ export class Asset extends DigoAsset {  // ← EXACT: export class Asset extends
 - MUST use named export: `export class Asset` (NOT `export default class`)
 - MUST extend DigoAsset
 - MUST have constructor() that calls super()
-- MUST have render() method that returns ReactNode
+- MUST have override render() method that returns ReactNode
 
 ### ⚠️ DIGOASSET IS A PLAIN TYPESCRIPT CLASS (NOT React.Component)
 
-DigoAsset only has three protected properties and an abstract `render()` method:
+DigoAsset only has three protected properties and an abstract `override render()` method:
 
 | Property | Type | Description |
 |----------|------|-------------|
@@ -54,9 +54,9 @@ DigoAsset only has three protected properties and an abstract `render()` method:
 
 Rendering is imperative: `updateUI()` calls `this.rootElement.render(this.render())` via a React 19 `createRoot`. Updates are triggered by `window.postMessage` events (`UPDATE_DEFINITION`, `UPDATE_TIME_ARRAY`).
 
-**Since DigoAsset is not React.Component, no React class features exist on it** — no lifecycle methods, no `setState`, no `createRef`, no `this.timeIndex`, etc. Only the three properties above and `render()` are available.
+**Since DigoAsset is not React.Component, no React class features exist on it** — no lifecycle methods, no `setState`, no `createRef`, no `this.timeIndex`, etc. Only the three properties above and `override render()` are available.
 
-**When you need React features (hooks, state, refs, effects)**, create a functional component and return it from `render()`:
+**When you need React features (hooks, state, refs, effects)**, create a functional component and return it from `override render()`:
 
 ```typescript
 import React, { useRef, useEffect, useState } from 'react';
@@ -75,7 +75,7 @@ function MyVisualization({ instances, globalParameters, timeArray }: {
 
 export class Asset extends DigoAsset {
   constructor() { super(); }
-  render() {
+  override render() {
     return (
       <MyVisualization
         instances={this.instances || []}
@@ -87,7 +87,7 @@ export class Asset extends DigoAsset {
 }
 ```
 
-**When is the wrapper needed?** Recharts visualizations can often be rendered as pure JSX directly in `render()`. Libraries that require imperative DOM access (D3.js, Canvas, Three.js without @react-three/fiber) always need the functional wrapper pattern.
+**When is the wrapper needed?** Recharts visualizations can often be rendered as pure JSX directly in `override render()`. Libraries that require imperative DOM access (D3.js, Canvas, Three.js without @react-three/fiber) always need the functional wrapper pattern.
 
 ## COMMON MISTAKES TO AVOID
 
@@ -128,7 +128,7 @@ export class Asset extends DigoAsset {
 - [ ] Verify class name is exactly "Asset" (not MyChart, RenewableEnergyChart, etc.)
 - [ ] Verify using named export (NOT default export)
 - [ ] Add constructor() that calls super()
-- [ ] Add render() method
+- [ ] Add override render() method
 - [ ] Implement data mapping with spread operator FIRST: `{ ...instance, ... }`
 
 **CHECKPOINT:** Verify class name is "Asset" and export is named, NOT default.
@@ -160,10 +160,10 @@ export class Asset extends DigoAsset {
 - [ ] Am I using named export: `export class Asset` (NOT `export default class`)?
 - [ ] Does the Asset class extend DigoAsset?
 - [ ] Is there a constructor() that calls super()?
-- [ ] Is there a render() method that returns ReactNode?
+- [ ] Is there an override render() method that returns ReactNode?
 
 ### DigoAsset Architecture Check
-- [ ] Does the Asset class ONLY use `this.instances`, `this.globalParameters`, `this.timeArray`, and `render()`? (No other properties or methods exist on DigoAsset — use a functional component wrapper for React features)
+- [ ] Does the Asset class ONLY use `this.instances`, `this.globalParameters`, `this.timeArray`, and `override render()`? (No other properties or methods exist on DigoAsset — use a functional component wrapper for React features)
 
 ### File Completeness Checks
 - [ ] Are all 4 files present: /asset.tsx, /package.json, /styles.css, /definition.json?
@@ -234,7 +234,7 @@ React component that extends DigoAsset class:
 - Import DigoAsset from '@digo-org/digo-api'
 - **CRITICAL**: Use `export class Asset extends DigoAsset` (named export, NOT default export)
 - Must call `super()` in constructor
-- Override `render()` method returning React element
+- Use `override render()` method returning React element
 - Access parameters via `this.globalParameters` and `this.instances`
 - Support the chosen visualization library
 
@@ -326,7 +326,7 @@ const strokeWidth = this.globalParameters['stroke-width'] as number;
 **For visualizations with time series data (line charts, area charts over time):**
 
 ```typescript
-render() {
+override render() {
   // Get array data from the first (and only) row
   const solarData = (this.instances?.[0]?.['solar-value'] as number[]) || [];
   const windData = (this.instances?.[0]?.['wind-value'] as number[]) || [];
@@ -486,8 +486,8 @@ Before finalizing your output, ensure:
 - **Parameter normalization is ESSENTIAL** - Design for consistent behavior across data ranges
 - **Output format is STRICT** - Return only CODE_FILES artifact, Orchestrator will wrap the response
 
-5. **DIGOASSET IS A PLAIN CLASS** - Only `this.instances`, `this.globalParameters`, `this.timeArray`, and `render()` exist. For any React features, use a functional component wrapper returned from `render()`.
+5. **DIGOASSET IS A PLAIN CLASS** - Only `this.instances`, `this.globalParameters`, `this.timeArray`, and `override render()` exist. For any React features, use a functional component wrapper returned from `override render()`.
 
 ### Final Checkpoint Before Output
 
-**ASK YOURSELF:** "Does my Asset class only use the three DigoAsset properties and `render()`? Is the class named `Asset` with a named export? For imperative code, am I using a functional wrapper?"
+**ASK YOURSELF:** "Does my Asset class only use the three DigoAsset properties and `override render()`? Is the class named `Asset` with a named export? For imperative code, am I using a functional wrapper?"
