@@ -10,7 +10,9 @@ disable-model-invocation: true
 The following type definitions from `@digo-org/digo-api` are already in your context, fetched directly from the package source. You do **NOT** need to make any WebFetch calls to fetch schemas — locate the type definitions below and use them directly.
 
 ## types-common.ts
-!`curl -s https://unpkg.com/@digo-org/digo-api@latest/src/types-common.ts`
+
+!`cat node_modules/@digo-org/digo-api/src/types-common.ts`
 
 ## types-data.ts
-!`curl -s https://unpkg.com/@digo-org/digo-api@latest/src/types-data.ts`
+
+!`cat node_modules/@digo-org/digo-api/src/types-data.ts`
